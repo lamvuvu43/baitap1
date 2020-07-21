@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/list_ho_khau',function ()
+{
+   return view('task1.ho_khau.list_ho_khau');
+})->name('list_ho_khau');
