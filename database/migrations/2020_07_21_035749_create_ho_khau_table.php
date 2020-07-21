@@ -15,10 +15,10 @@ class CreateHoKhauTable extends Migration
     {
         Schema::create('HoKhau', function (Blueprint $table) {
             $table->Increments('ID');
-            $table->string('HK_CD');
-            $table->string('Chu_Ho_ID')->nullable();
+            $table->integer('HK_CD');
+            $table->integer('Chu_Ho_ID')->nullable();
             $table->string('Dia_Chi');
-            $table->string('Ngay_Cap');
+            $table->date('Ngay_Cap');
             $table->timestamps();
         });
     }
