@@ -1,10 +1,15 @@
-@extends('task1.index')
+@extends('index')
 @section('pageTitle','Danh sách hộ khẩu')
 @section('list_ho_khau')
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">
         <div class="text-center bg-light">
             <h3 class="m-3">Danh sách hộ khẩu</h3>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+            <a class="btn btn-primary btn_add" href="{{route('add_ho_khau')}}">Thêm</a>
+            </div>
         </div>
         <div class="m-3  " style=" overflow: auto;">
             <table class="table" id="tableHoKhau">

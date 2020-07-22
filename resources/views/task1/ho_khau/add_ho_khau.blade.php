@@ -1,4 +1,4 @@
-@extends('task1.index')
+@extends('index')
 @section('pageTitle',' Thêm hộ khẩu')
 @section('add_ho_khau')
 <div class="row">
@@ -10,7 +10,7 @@
             <button class ="btn btn-second quaylai">Quay lại</button>
         </div>
         <div>
-            <form action="{{route('process_add_ho_khau')}}" method="POST">
+            <form action="{{route('process_add_nhan_khau')}}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">
@@ -43,7 +43,7 @@
 
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="ngay_cap" class="mr-2">Ngày Cấp</label>
-                        <input type="text" class=" @error('ngay_cap') is-invalid @enderror form-control" name="ngay_cap"
+                        <input type="date" class=" @error('ngay_cap') is-invalid @enderror form-control" name="ngay_cap"
                             placeholder="12455325" value="<?php echo date('Y-m-d') ?>" id="ngay_cap">
                         @error('ngay_cap')
                         <div class="alert alert-danger">{{ $message }}</div>

@@ -58,6 +58,7 @@
             @yield('list_ho_khau')
             @yield('add_ho_khau')
             @yield('edit_ho_khau')
+            @yield('list_nhan_khau')
         </div>
     </div>
     <!-- Thư viện jquery đã nén phục vụ cho bootstrap.min.js  -->

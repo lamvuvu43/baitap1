@@ -1,4 +1,4 @@
-@extends('task1.index')
+@extends('index')
 @section('pageTitle',' Cập nhật hộ khẩu')
 @section('edit_ho_khau')
 <div class="row">
@@ -26,7 +26,7 @@
                         <label for="chu_ho_id" class="mr-2">Chủ hộ ID</label>
                         <select name="chu_ho_id" id="chu_ho_id" class="form-control">
                             @foreach ($nk as $item)
-                            <option value="{{$item->ID}}">{{$item->Ho_Ten}}</option>
+                            <option value="{{$item->ID}}" <?php echo ($item->HK_ID==$hk->Chu_Ho_ID)? "selected":"" ?> >{{$item->Ho_Ten}}</option>
                             @endforeach
                         </select>
                     </div>

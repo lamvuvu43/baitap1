@@ -22,8 +22,8 @@ class HoKhauController extends Controller
         $response = array();
 
         foreach ($hokhau as $i => $item) {
-
-            $response[] = array('id' => $item->ID, 'hk_cd' => $item->HK_CD, 'chu_ho_id' => $item->Chu_Ho_ID, 'dia_chi' => $item->Dia_Chi, 'ngay_cap' => $item->Ngay_Cap, 'stv' => '0');
+            
+            $response[] = array('id' => $item->ID, 'hk_cd' => $item->HK_CD, 'chu_ho_id' => $item->Chu_Ho_ID, 'dia_chi' => $item->Dia_Chi, 'ngay_cap' => $item->Ngay_Cap, 'stv' => count($item->nhankhau));
         }
         echo json_encode($response);
     }
@@ -104,7 +104,9 @@ class HoKhauController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all(),$id);
+        // dd($request->all(),$id);
+        HoKhau::where('ID',$id)->update(['HK_CD'=>$request['hk_cd'],'Chu_Ho_ID'=>$request['chu_ho_id'],'Dia_Chi'=>$request['dia_chi'],'Ngay_Cap'=>$request['ngay_cap']]);
+        return redirect()->back()->with('success','Cập nhật thành công');
     }
 
     /**

@@ -13,8 +13,8 @@ class CreateHoKhauTable extends Migration
      */
     public function up()
     {
-        Schema::create('HoKhau', function (Blueprint $table) {
-            $table->Increments('ID');
+        Schema::create('ho_khau', function (Blueprint $table) {
+            $table->increments('ID');
             $table->integer('HK_CD');
             $table->integer('Chu_Ho_ID')->nullable();
             $table->string('Dia_Chi');
@@ -30,6 +30,6 @@ class CreateHoKhauTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('HoKhau');
+        Schema::dropIfExists('ho_khau');
     }
 }
