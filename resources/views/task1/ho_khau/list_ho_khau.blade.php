@@ -33,6 +33,7 @@
 </div>
 <script>
     var url = "{{route('list_ho_khau')}}";
+    url_edit ="{{route('edit_ho_khau','')}}"
 </script>
 <script src="{{asset('js/ho_khau.js')}}"></script>
 @endsection

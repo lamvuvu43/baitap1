@@ -12,6 +12,7 @@
             <a class="btn btn-primary btn_add" href="{{route('add_nhan_khau')}}">Thêm</a>
             </div>
          </div>
+         
         <div class="m-3  " style=" overflow: auto;">
             <table class="table" id="tableNhanKhau">
                 <thead>
@@ -19,6 +20,7 @@
                         <th>STT</th>
                         <th>ID</th>
                         <th>Họ tên</th>
+                        <th>Hình ảnh</th>
                         <th>Ngày sinh</th>
                         <th>Ngày mất</th>
                         <th>Giới tính</th>
@@ -38,6 +40,7 @@
 </div>
 <script>
     url = "{{route('list_nhan_khau')}}";
+    url_edit="{{route('edit_nhan_khau','')}}";
 </script>
 <script src="{{asset('js/nhan_khau.js')}}"></script>
 @endsection

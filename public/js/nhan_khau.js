@@ -20,6 +20,11 @@ window.onload = function () {
                 dataTable += value.ho_ten
                 dataTable += "</td>"
                 dataTable += "<td>"
+                dataTable+="<div class='avatar'>"
+                dataTable += "<img src='https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png' alt='Hình ảnh đại diện'>"
+                dataTable +="</div>"
+                dataTable += "</td>"
+                dataTable += "<td>"
                 dataTable += value.ngay_sinh
                 dataTable += "</td>"
                 dataTable += "<td>"
@@ -42,7 +47,7 @@ window.onload = function () {
                 dataTable += "</td>"
                 dataTable += "<td>"
                 dataTable += "<a class='btn btn-danger m-1 delete_btn' data-id='" + value.id + "'><i class='far fa-trash-alt'></i></a>"
-                dataTable += "<a class='btn btn-primary m-1' href='edit_nhan_khau/" + value.id + "'><i class='far fa-edit'></i></i></a>"
+                dataTable += "<a class='btn btn-primary m-1' href='"+url_edit +"/"+ value.id + "'><i class='far fa-edit'></i></i></a>"
                 dataTable += "<a class='btn btn-success m-1' href='add_ho_khau'><i class='fas fa-eye'></i></a>"
                 dataTable += "</tr>";
             });

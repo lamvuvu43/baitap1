@@ -1,5 +1,5 @@
 @extends('index')
-@section('pageTitle',' Sửa nhan khẩu')
+@section('pageTitle',' Sửa nhân khẩu')
 @section('add_ho_khau')
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">
@@ -103,6 +103,16 @@
                             is-invalid
                         @enderror">
                         @error('Ngay_Nhap_Khau')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 ">
+                        <label for="Hinh_Anh" class="mr-2">Hình ảnh</label>
+                        {{-- <div><a class="btn btn-info" id="avatar">Chọn hình</a></div> --}}
+                        <input type="file" id="upload_avatar" name="Hinh_Anh" value="" class="form-control @error('Ngay_Nhap_Khau')
+                            is-invalid
+                        @enderror" accept="image/*" >
+                        @error('Hinh_Anh')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

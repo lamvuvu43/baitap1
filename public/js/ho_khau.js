@@ -30,7 +30,7 @@ window.onload = function () {
                 dataTable += "</td>"
                 dataTable += "<td>"
                 dataTable += "<a class='btn btn-danger m-1 delete_btn' data-id='" + value.id + "'><i class='far fa-trash-alt'></i></a>"
-                dataTable += "<a class='btn btn-primary m-1' href='edit_ho_khau/" + value.id + "'><i class='far fa-edit'></i></i></a>"
+                dataTable += "<a class='btn btn-primary m-1' href='"+ url_edit +"/"+ value.id + "'><i class='far fa-edit'></i></i></a>"
                 dataTable += "<a class='btn btn-success m-1' href='add_ho_khau'><i class='far fa-address-card'></i></i></a>"
                 dataTable += "</tr>";
             });
