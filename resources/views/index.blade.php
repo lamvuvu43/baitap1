@@ -21,7 +21,8 @@
     <link href="{{ asset('/css/loading.css')}}" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="stylesheet" href="{{asset('css/nhan_khau.css')}}">
+    <link rel="stylesheet" href="{{asset('css/nhan_khau.css')}}">
+    
 </head>
 
 <body>
@@ -29,11 +30,11 @@
         <div class="showloading"></div>
     </div>
     @if (session('success'))
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-                {{ session('success') }}
-            </div>
-            @endif
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
         <div class="top-right links">
@@ -71,6 +72,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('/js/loading.js') }}"></script>
+    <script src="{{asset('js/table2csv.js')}}"></script>
 </body>
 
 </html>

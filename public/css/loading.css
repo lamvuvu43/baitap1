@@ -7,7 +7,7 @@
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                url('https://cdn.lowgif.com/small/fccc1add1538ac73-preloader-gif-transparent-background-14-gif-images-download.gif') 
+                url('../images/loading.gif') 
                 50% 50% 
                 no-repeat;
 }
