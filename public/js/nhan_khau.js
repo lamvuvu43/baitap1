@@ -21,7 +21,7 @@ window.onload = function () {
                 dataTable += "</td>"
                 dataTable += "<td>"
                 dataTable+="<div class='avatar'>"
-                dataTable += "<img src='https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png' alt='Hình ảnh đại diện'>"
+                dataTable += "<img src='"+value.hinh_anh+"'>"
                 dataTable +="</div>"
                 dataTable += "</td>"
                 dataTable += "<td>"

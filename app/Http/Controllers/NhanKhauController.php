@@ -54,7 +54,7 @@ class NhanKhauController extends Controller
             'Quan_He' => "required",
             'Email' => "required",
             'SDT' => "required",
-            'Ngay_nhap_Khau' => "required"
+            'Ngay_Nhap_Khau' => "required"
         ];
         $message = [
             'HK_ID.required' => "Hộ khẩu ID không được trống",
@@ -66,17 +66,19 @@ class NhanKhauController extends Controller
             'Quan_He.required' => "Vui lòng chọn một quan hệ",
             'Email.required' => "Vui lòng nhập email",
             'SDT.required' => "Vui lòng nhập số điện thoại",
-            'Ngay_nhap_Khau.required' => "Ngày nhập khẩu không được trống"
+            'Ngay_Nhap_Khau.required' => "Ngày nhập khẩu không được trống"
         ];
         $vali = Validator::make($request->all(), $rules, $message);
         if ($vali->fails()) {
+            // dd($vali->fails());
             return redirect()->back()->withErrors($vali)->withInput();
         } else {
+            // dd($request->all());
             $file =  $request->file(['Hinh_Anh']);
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $file->move($destinationPath, $filename);
-            $id = NhanKhau::insert([
+            $id = NhanKhau::insertGetId([
                 'HK_ID' => $request['HK_ID'],
                 'Ho_Ten' => $request['Ho_Ten'],
                 'Ngay_Sinh' => $request['Ngay_Sinh'],
