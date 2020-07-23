@@ -13,7 +13,7 @@
 
         </div>
         <div>
-            <form action="{{route('process_add_nhan_khau')}}" method="POST">
+            <form action="{{route('process_edit_nhan_khau',$nk->ID)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">

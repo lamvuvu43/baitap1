@@ -127,7 +127,20 @@ class NhanKhauController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+    //   dd($request->file('Hinh_Anh'));
+        if($request->file('Hinh_Anh')!=null){
+            $file=$request->file(['Hinh_Anh']);
+            $filename = time() . '.' .  $file->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $file->move($destinationPath, $filename);
+            $request['Hinh_Anh']='/images'.$filename;
+            NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh']));
+            NhanKhau::where('ID',$id)->update(['Hinh_Anh'=>'images/'.$filename]);
+        }else{     
+            NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh']));
+        }
+        return redirect()->route('nhan_khau')->with('success','Cập nhật thành công');
+        
     }
 
     /**

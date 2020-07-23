@@ -7,6 +7,8 @@
 
     <title>@yield('pageTitle') - Quản lý hổ khẩu</title>
 
+    
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
@@ -22,7 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/nhan_khau.css')}}">
-    
+
 </head>
 
 <body>
@@ -55,7 +57,13 @@
                 {{-- <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing --}}
                 {{-- responsive, mobile-first projects on the web.</p> --}}
             </div>
+            <nav class="nav justify-content-center bg-">
+                <a class="nav-link active" href="{{route('ho_khau')}}">Hộ Khẩu</a>
+            <a class="nav-link" href="{{route('nhan_khau')}}">Nhân Khẩu</a>
+                {{-- <a class="nav-link disabled" href="#">Disabled link</a> --}}
+            </nav>
         </div>
+
         <div class="container bg-light">
             @yield('list_ho_khau')
             @yield('add_ho_khau')
