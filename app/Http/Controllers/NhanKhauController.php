@@ -90,8 +90,8 @@ class NhanKhauController extends Controller
             $id = NhanKhau::insertGetId([
                 'HK_ID' => $request['HK_ID'],
                 'Ho_Ten' => $request['Ho_Ten'],
-                "user"=>$request['user'],
-                "password"=>bcrypt($request['password']),
+                "user" => $request['user'],
+                "password" => bcrypt($request['password']),
                 'Ngay_Sinh' => $request['Ngay_Sinh'],
                 'Ngay_Mat' => $request['Ngay_Mat'],
                 'Gioi_Tinh' => $request['Gioi_Tinh'],
@@ -166,8 +166,14 @@ class NhanKhauController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('ho_khau')->where('HK_ID',$id)->update(['HK_ID'=>0]);
-        NhanKhau::where('id',$id)->delete();       
+        DB::table('ho_khau')->where('ID','=',$id)->update(['Chu_Ho_ID'=>0]);
+        // $hk = HoKhau::where('ID', $id)->first();
+        // if ($hk != null) {
+        //     echo "Lỗi không thể xoá. Do người này đang là chủ hộ";
+        // } else {
+        //     NhanKhau::where('id', $id)->delete();
+        // }
+        NhanKhau::where('id', $id)->delete();
     }
     public function list_nhan_khau_by_hk()
     {

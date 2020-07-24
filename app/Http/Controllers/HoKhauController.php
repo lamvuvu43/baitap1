@@ -50,14 +50,12 @@ class HoKhauController extends Controller
         // dd($request->all());
         $rules = [
             'hk_cd' => 'required',
-            'chu_ho_id' => 'required',
             'dia_chi' => 'required',
             'ngay_cap' => 'required'
         ];
 
         $messege = [
             'hk_cd.required' => 'Hộ khẩu công dân không được trống',
-            'chu_ho_id.required' => 'Chủ hộ ID  không được trống',
             'dia_chi.required' => 'Địa chỉ không được trống',
             'ngay_cap.required' => 'Ngày cấp không được trống'
         ];
@@ -66,7 +64,7 @@ class HoKhauController extends Controller
         if ($vali->fails()) {
             return redirect()->back()->withErrors($vali)->withInput();
         } else {
-            HoKhau::create(['HK_CD' => $request['hk_cd'], 'Chu_Ho_ID' => $request['chu_ho_id'], 'Dia_Chi' => $request['dia_chi'], 'Ngay_Cap' => $request['ngay_cap']]);
+            HoKhau::create(['HK_CD' => $request['hk_cd'], 'Chu_Ho_ID' => '0', 'Dia_Chi' => $request['dia_chi'], 'Ngay_Cap' => $request['ngay_cap']]);
         }
         return redirect()->back()->with('success', 'Thêm thành công');
     }

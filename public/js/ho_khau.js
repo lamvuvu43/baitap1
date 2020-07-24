@@ -86,7 +86,7 @@ $(document).on("click", ".delete_btn", function () {
     console.log(id_hk);
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
-        url: "delete_ho_khau/" + id_hk,
+        url: url_delete_hk +'/' + id_hk,
         type: "DELETE",
         data: {
             id: id_hk,
@@ -205,19 +205,41 @@ $(document).on("click", ".delete_btn_nk", function () {
     console.log("here");
     id=$(this).data("id");
     var token = $("meta[name='csrf-token']").attr("content");
-    $.ajax({
-        url: url_delete_nk +'/'+id,
-        type: "DELETE",
-        data: {
-            id: id,
-            _token: token,
-        },
-        success: function (data) {
-            console.log("delete nk thành công");
-            $("#"+id).hide(500);
-        },
-        error: function (e) {
-            console.log(e);
-        },
+    $.confirm({
+        title: 'Confirm!',
+        content: 'Simple confirm!',
+        buttons: {
+            confirm: function () {
+                $.alert('Confirmed!');
+            },
+            cancel: function () {
+                $.alert('Canceled!');
+            },
+            somethingElse: {
+                text: 'Something else',
+                btnClass: 'btn-blue',
+                keys: ['enter', 'shift'],
+                action: function(){
+                    $.alert('Something else?');
+                }
+            }
+        }
     });
+    // $.ajax({
+    //     url: url_delete_nk +'/'+id,
+    //     type: "DELETE",
+    //     data: {
+    //         id: id,
+    //         _token: token,
+    //     },
+    //     success: function (data) {
+    //        if(data==''){
+    //            alert(data);
+    //        }
+    //         $("#"+id).hide(500);
+    //     },
+    //     error: function (e) {
+    //         console.log(e);
+    //     },
+    // });
 });

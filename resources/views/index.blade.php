@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{asset('css/nhan_khau.css')}}">
     <link rel="stylesheet" href="{{asset('css/ho_khau.css')}}">
     <link rel="stylesheet" href="{{asset('css/popup.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery-confirm.min.css')}}">
+    <script src="{{asset("js/jquery-confirm.min.js")}}"></script>
 
 </head>
 
@@ -70,7 +72,7 @@
             <li class="nav-item">
                 <a class="nav-link active" href="{{route('ho_khau')}}">Hộ Khẩu</a>
             </li>
-        
+
             <li class="nav-item">
                 <a class="nav-link" href="{{route('nhan_khau')}}">Nhân Khẩu</a>
             </li>
