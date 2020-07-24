@@ -35,9 +35,15 @@ window.onload = function () {
                 dataTable += "</td>";
                 dataTable += "<td>";
                 dataTable +=
-                    "<a class='btn btn-danger m-1 delete_btn' data-id='" +
+                    "<a class='btn btn-success m-1 popup' href='" +
+                    url_add_member +
+                    "/" +
                     value.id +
-                    "'><i class='far fa-trash-alt'></i></a>";
+                    "'><i class='far fa-address-card'></i>";
+                dataTable +=
+                    " <span class='popuptext' id='myPopup'>Thêm thành viên</span>";
+                dataTable += "</a>";
+
                 dataTable +=
                     "<a class='btn btn-primary m-1' href='" +
                     url_edit +
@@ -45,7 +51,9 @@ window.onload = function () {
                     value.id +
                     "'><i class='far fa-edit'></i></i></a>";
                 dataTable +=
-                    "<a class='btn btn-success m-1' href='add_ho_khau'><i class='far fa-address-card'></i></i></a>";
+                    "<a class='btn btn-danger m-1 delete_btn' data-id='" +
+                    value.id +
+                    "'><i class='far fa-trash-alt'></i></a>";
                 dataTable += "</tr>";
             });
             $("#dataHoKhau").html(dataTable);
@@ -93,92 +101,103 @@ $(document).on("click", ".delete_btn", function () {
 });
 
 $(document).on("click", ".member_hk", function () {
+    // $('#tableNhanKhau tbody').empty()
     console.log("working");
     id = $(this).data("id");
-    i=0;
-    dataTable=''
-    $("#memberModal").modal("show");
+    console.log(id);
+    i = 0;
     $.ajax({
-        url: url_get_list_nhan_khau +"/"+id,
+        url: url_get_list_nhan_khau + "/" + id,
         type: "GET",
         dataType: "json",
+
         success: function (data) {
-            console.log(data);
+            // console.log(data); return false;
+            dataTableNk = "";
+
             $.each(data, function (key, value) {
                 i = i + 1;
-                dataTable += "<tr id=" + value.id + ">";
-                dataTable += "<td>";
-                dataTable += i;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.id;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.ho_ten;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += "<div class='avatar'>";
-                dataTable += "<img src='" + value.hinh_anh + "'>";
-                dataTable += "</div>";
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.ngay_sinh;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.ngay_mat;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.gioi_tinh;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.quan_he;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.email;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.sdt;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable += value.ngay_nhap_khau;
-                dataTable += "</td>";
-                dataTable += "<td>";
-                dataTable +=
+                dataTableNk += "<tr id=" + value.id + ">";
+                dataTableNk += "<td>";
+                dataTableNk += i;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.id;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.ho_ten;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += "<div class='avatar'>";
+                dataTableNk += "<img src='" + value.hinh_anh + "'>";
+                dataTableNk += "</div>";
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.ngay_sinh;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.ngay_mat;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.gioi_tinh;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.quan_he;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.email;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.sdt;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk += value.ngay_nhap_khau;
+                dataTableNk += "</td>";
+                dataTableNk += "<td>";
+                dataTableNk +=
                     "<a class='btn btn-danger m-1 delete_btn' data-id='" +
                     value.id +
                     "'><i class='far fa-trash-alt'></i></a>";
-                dataTable +=
+                dataTableNk +=
                     "<a class='btn btn-primary m-1' href='" +
-                    url_edit +
+                    url_edit_nhan_khau +
                     "/" +
                     value.id +
                     "'><i class='far fa-edit'></i></i></a>";
-                dataTable +=
-                    "<a class='btn btn-success m-1' href='add_ho_khau'><i class='fas fa-eye'></i></a>";
-                dataTable += "</tr>";
+             
+                dataTableNk += "</tr>";
             });
-            $("#dataNhanKhau").html(dataTable);
-            $("#tableNhanKhau").DataTable({
-                destroy: true,
-                language: {
-                    info: "Từ _START_ đến _END_ của _TOTAL_ dòng",
-                    lengthMenu: " Hiện thị _MENU_ dòng ",
-                    zeroRecords: "Không có giữ liệu",
-                    infoEmpty: "",
-                    infoFiltered: "(tìm thấy trong _MAX_ dòng dữ liệu)",
-                    search: "Tìm kiếm",
-                    paginate: {
-                        previous: "Trước",
-                        next: "Tiếp theo",
-                    },
-                },
-            });
+            call_table(dataTableNk);
+            $("#table_member").show(500);
         },
         error: function (e) {
             console.log(e.responseJSON.message);
         },
     });
 });
+function call_table(dataTable) {
+    $("#tableNhanKhau").DataTable({
+        destroy: true,
+        language: {
+            info: "Từ _START_ đến _END_ của _TOTAL_ dòng",
+            lengthMenu: " Hiện thị _MENU_ dòng ",
+            zeroRecords: "Không có giữ liệu",
+            infoEmpty: "",
+            infoFiltered: "(tìm thấy trong _MAX_ dòng dữ liệu)",
+            search: "Tìm kiếm",
+            paginate: {
+                previous: "Trước",
+                next: "Tiếp theo",
+            },
+        },
+    })
+    ;
+    // console.log(dataTableNk)
+//    table.ajax.reload();
+    $("#dataNhanKhau").html(dataTable);
+   
+    
+}
 // $(document).on("mouseenter", ".member_hk", function () {
 //     console.log('working');
 //     $("#memberModal").modal("show");

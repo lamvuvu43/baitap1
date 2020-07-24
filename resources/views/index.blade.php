@@ -7,7 +7,7 @@
 
     <title>@yield('pageTitle') - Quản lý hổ khẩu</title>
 
-    
+
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -24,6 +24,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/nhan_khau.css')}}">
+    <link rel="stylesheet" href="{{asset('css/ho_khau.css')}}">
+    <link rel="stylesheet" href="{{asset('css/popup.css')}}">
 
 </head>
 
@@ -39,37 +41,58 @@
     @endif
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
-        <div class="top-right links">
+        {{-- <div class="top-right links">
             @auth
             <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
+        @else
+        <a href="{{ route('login') }}">Login</a>
 
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
-        </div>
+        @if (Route::has('register'))
+        <a href="{{ route('register') }}">Register</a>
         @endif
-        <div class="container">
-            <div class="jumbotron text-center">
-                <h1>Quản lý hộ khẩu</h1>
-                {{-- <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing --}}
-                {{-- responsive, mobile-first projects on the web.</p> --}}
-            </div>
-            <nav class="nav justify-content-center bg-">
+        @endauth
+    </div> --}}
+    @endif
+    <div class="container" style="position: relative;">
+        <div class="jumbotron text-center">
+            <h1>Quản lý hộ khẩu</h1>
+            {{-- <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing --}}
+            {{-- responsive, mobile-first projects on the web.</p> --}}
+        </div>
+        <ul class="nav justify-content-center bg-">
+            <li class="nav-item">
                 <a class="nav-link active" href="{{route('ho_khau')}}">Hộ Khẩu</a>
-            <a class="nav-link" href="{{route('nhan_khau')}}">Nhân Khẩu</a>
-                {{-- <a class="nav-link disabled" href="#">Disabled link</a> --}}
-            </nav>
-        </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('nhan_khau')}}">Nhân Khẩu</a>
+            </li>
+            <li class="nav-item drowpdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">{{Auth::user()->name}}</a>
+                <div class="dropdown-menu">
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                </div>
+            </li>
 
-        <div class="container bg-light">
-            @yield('list_ho_khau')
-            @yield('add_ho_khau')
-            @yield('edit_ho_khau')
-            @yield('list_nhan_khau')
-        </div>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+
+        </ul>
+        @yield('list_ho_khau')
+        @yield('add_ho_khau')
+        @yield('edit_ho_khau')
+        @yield('list_nhan_khau')
+        @yield('add_member_to_hk')
+    </div>
+
+    {{-- <div class="container bg-light">
+          
+        </div> --}}
     </div>
     <!-- Thư viện jquery đã nén phục vụ cho bootstrap.min.js  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

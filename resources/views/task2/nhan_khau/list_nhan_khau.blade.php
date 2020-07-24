@@ -9,7 +9,7 @@
         <div class="row">
             
             <div class="col-12 col-md-6 col-lg-6 ">
-            <a class="btn btn-primary btn_add" href="{{route('add_nhan_khau')}}">Thêm nhân khẩu</a>
+ 
             </div>
             <div class="col-12 col-md-6 col-lg-6 text-right">
             <button class="btn btn-info export_btn"  data-toggle="modal" data-target="#myModal">Export CSV</button>

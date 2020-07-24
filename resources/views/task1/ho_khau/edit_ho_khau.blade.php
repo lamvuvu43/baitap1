@@ -26,7 +26,7 @@
                         <label for="chu_ho_id" class="mr-2">Chủ hộ ID</label>
                         <select name="chu_ho_id" id="chu_ho_id" class="form-control">
                             @foreach ($nk as $item)
-                            <option value="{{$item->ID}}" <?php echo ($item->HK_ID==$hk->Chu_Ho_ID)? "selected":"" ?> >{{$item->Ho_Ten}}</option>
+                            <option value="{{$item->id}}" <?php echo ($item->id==$hk->Chu_Ho_ID)? "selected":"" ?> >{{$item->Ho_Ten}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="text-center m-3">
-                    <button type="submit" class="btn btn-success">Thêm</button>
+                    <button type="submit" class="btn btn-success">Sửa</button>
                 </div>
             </form>
         </div>

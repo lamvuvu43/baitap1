@@ -20,7 +20,7 @@ class NhanKhauController extends Controller
         $nk = NhanKhau::get();
         $respones = array();
         foreach ($nk as $item) {
-            $respones[] = array('id' => $item->ID, 'hk_id' => $item->HK_ID, 'ho_ten' => $item->Ho_Ten, 'ngay_sinh' => $item->Ngay_Sinh, 'ngay_mat' => $item->Ngay_Mat, 'gioi_tinh' => $item->Gioi_Tinh, 'quan_he' => $item->Quan_He, 'email' => $item->Email, 'sdt' => $item->SDT, 'ngay_nhap_khau' => $item->Ngay_Nhap_Khau, 'hinh_anh' => $item->Hinh_Anh);
+            $respones[] = array('id' => $item->id, 'hk_id' => $item->HK_ID, 'ho_ten' => $item->Ho_Ten, 'ngay_sinh' => $item->Ngay_Sinh, 'ngay_mat' => $item->Ngay_Mat, 'gioi_tinh' => $item->Gioi_Tinh, 'quan_he' => $item->Quan_He, 'email' => $item->Email, 'sdt' => $item->SDT, 'ngay_nhap_khau' => $item->Ngay_Nhap_Khau, 'hinh_anh' => $item->Hinh_Anh);
         }
         echo json_encode($respones);
     }
@@ -30,10 +30,10 @@ class NhanKhauController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $hk = HoKhau::get();
-        return view('task2.nhan_khau.add_nhan_khau', compact('hk'));
+        // $hk = HoKhau::get();
+        return view('task2.nhan_khau.add_nhan_khau', compact('id'));
     }
 
     /**
@@ -89,7 +89,11 @@ class NhanKhauController extends Controller
                 'SDT' => $request['SDT'],
                 'Ngay_Nhap_Khau' => $request['Ngay_Nhap_Khau']
             ]);
-            NhanKhau::where('ID', $id)->update(['Hinh_Anh' => 'images/' . $filename]);
+            NhanKhau::where('ID', $id)->update(['Hinh_Anh' => '/images/' . $filename]);
+            $check_chu_ho_id = HoKhau::where('ID',$request['HK_ID'])->first(); 
+            if($check_chu_ho_id->Chu_Ho_ID ==null){
+                HoKhau::where('ID',$request['HK_ID'])->update(['Chu_Ho_ID'=>$id]);
+            }
             return redirect()->back()->with('success', 'Thêm nhân khẩu thành công')->withInput();
         }
     }
@@ -102,9 +106,10 @@ class NhanKhauController extends Controller
      */
     public function show($id)
     {
+        // dd($id);
         $nk = NhanKhau::where('ID', $id)->first();
-        $hk = HoKhau::get();
-        return view('task2.nhan_khau.edit_nhan_khau', compact('hk', 'nk'));
+    
+        return view('task2.nhan_khau.edit_nhan_khau', compact('nk'));
     }
 
     /**
@@ -127,19 +132,19 @@ class NhanKhauController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //   dd($request->file('Hinh_Anh'));
+    //   dd($request->all());
         if($request->file('Hinh_Anh')!=null){
             $file=$request->file(['Hinh_Anh']);
             $filename = time() . '.' .  $file->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $file->move($destinationPath, $filename);
-            $request['Hinh_Anh']='/images'.$filename;
-            NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh']));
-            NhanKhau::where('ID',$id)->update(['Hinh_Anh'=>'images/'.$filename]);
+            NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh','HK_ID']));
+            NhanKhau::where('ID',$id)->update(['Hinh_Anh'=>"/images/".$filename]);
         }else{     
+            dd($request->all());
             NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh']));
         }
-        return redirect()->route('nhan_khau')->with('success','Cập nhật thành công');
+        return redirect()->back()->with('success','Cập nhật thành công');
         
     }
 

@@ -17,11 +17,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="HK_ID" class="mr-2">Hộ khẩu ID</label>
-                        <select name="HK_ID" id="HK_ID" class="form-control">
-                            @foreach ($hk as $item)
-                            <option value="{{$item->ID}}">{{$item->ID}}</option>
-                            @endforeach
-                        </select>
+                    <input name="HK_ID" id="HK_ID" class="form-control" value="{{$id}}" name="HK_ID" readonly>
                         @error('hk_cd')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

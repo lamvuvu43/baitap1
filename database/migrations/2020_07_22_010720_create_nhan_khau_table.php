@@ -14,8 +14,10 @@ class CreateNhanKhauTable extends Migration
     public function up()
     {
         Schema::create('nhan_khau', function (Blueprint $table) {
-            $table->Increments('ID');
+            $table->Increments('id');
             $table->integer('HK_ID')->unsigned()->nullable();
+            $table->string('user')->nullable();
+            $table->string('password')->nullable();
             $table->string("Ho_Ten", '50');
             $table->string("Hinh_Anh", '500')->nullable();
             $table->date('Ngay_Sinh');

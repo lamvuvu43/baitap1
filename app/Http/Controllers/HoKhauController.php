@@ -22,7 +22,7 @@ class HoKhauController extends Controller
         $response = array();
 
         foreach ($hokhau as $i => $item) {
-            
+
             $response[] = array('id' => $item->ID, 'hk_cd' => $item->HK_CD, 'chu_ho_id' => $item->Chu_Ho_ID, 'dia_chi' => $item->Dia_Chi, 'ngay_cap' => $item->Ngay_Cap, 'stv' => count($item->nhankhau));
         }
         echo json_encode($response);
@@ -79,8 +79,9 @@ class HoKhauController extends Controller
      */
     public function show($id)
     {
-        $hk = HoKhau::where('id', $id)->first();
-        $nk = NhanKhau::get();
+        $hk = HoKhau::where('ID', $id)->first();
+        $nk = NhanKhau::where('HK_ID', $id)->get();
+        // dd($nk);
         return view('task1.ho_khau.edit_ho_khau', compact('hk', 'nk'));
     }
 
@@ -105,8 +106,8 @@ class HoKhauController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all(),$id);
-        HoKhau::where('ID',$id)->update(['HK_CD'=>$request['hk_cd'],'Chu_Ho_ID'=>$request['chu_ho_id'],'Dia_Chi'=>$request['dia_chi'],'Ngay_Cap'=>$request['ngay_cap']]);
-        return redirect()->back()->with('success','Cập nhật thành công');
+        HoKhau::where('ID', $id)->update(['HK_CD' => $request['hk_cd'], 'Chu_Ho_ID' => $request['chu_ho_id'], 'Dia_Chi' => $request['dia_chi'], 'Ngay_Cap' => $request['ngay_cap']]);
+        return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
     /**
@@ -119,14 +120,20 @@ class HoKhauController extends Controller
     {
         HoKhau::destroy($id);
     }
-    public function getListNhanKhau($id)    
+    public function getListNhanKhau($id)
     {
-        $nk=NhanKhau::where('HK_ID',$id)->get();
+        $nk = NhanKhau::where('HK_ID', $id)->get();
         $respones = array();
         foreach ($nk as $item) {
-            $respones[] = array('id' => $item->ID, 'hk_id' => $item->HK_ID, 'ho_ten' => $item->Ho_Ten, 'ngay_sinh' => $item->Ngay_Sinh, 'ngay_mat' => $item->Ngay_Mat, 'gioi_tinh' => $item->Gioi_Tinh, 'quan_he' => $item->Quan_He, 'email' => $item->Email, 'sdt' => $item->SDT, 'ngay_nhap_khau' => $item->Ngay_Nhap_Khau, 'hinh_anh' => $item->Hinh_Anh);
+            $respones[] = array('id' => $item->id, 'hk_id' => $item->HK_ID, 'ho_ten' => $item->Ho_Ten, 'ngay_sinh' => $item->Ngay_Sinh, 'ngay_mat' => $item->Ngay_Mat, 'gioi_tinh' => $item->Gioi_Tinh, 'quan_he' => $item->Quan_He, 'email' => $item->Email, 'sdt' => $item->SDT, 'ngay_nhap_khau' => $item->Ngay_Nhap_Khau, 'hinh_anh' => $item->Hinh_Anh);
         }
         echo json_encode($respones);
+    }
 
+    public function add_member($id)
+    {
+        $nk = NhanKhau::where('HK_ID','=','null')->get();
+        //con thắc mắc phần này đợi hỏi
+        return view('task1.ho_khau.add_member_nk', compact('id'));
     }
 }

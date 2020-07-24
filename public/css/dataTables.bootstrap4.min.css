@@ -207,5 +207,12 @@ div.table-responsive
 }
 
 tr:hover{
-    background-color: antiquewhite;
+    background-color: #CCFFFF;
+}
+thead tr:first-child{
+    font-weight: bold;
+    background-color: greenyellow;
+}
+tr:nth-child(even){
+    background-color: 	#C0C0C0;
 }

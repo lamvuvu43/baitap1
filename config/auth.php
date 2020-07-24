@@ -46,6 +46,14 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'nhan_khau_login'=>[
+            'driver' => 'session',
+            'provider' => 'nhan_khau',
+        ],
+        'nhan_khau_api' => [
+            'driver' => 'token',
+            'provider' => 'nhan_khau',
+        ],
     ],
 
     /*
@@ -75,6 +83,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        // tạo provider cho bảng nhâ khẩu để login
+        'nhan_khau'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\NhanKhau::class,
+        ]
     ],
 
     /*
@@ -98,6 +111,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'nhan_khau_login'=>[
+            'provider'=>'nhan_khau',
+            'table'=>'password_resets',
+            'expire'=>60,
+        ]
     ],
 
 ];
