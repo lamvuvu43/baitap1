@@ -79,6 +79,7 @@
     url_get_list_nhan_khau="{{route('get_list_nhan_khau','')}}";
     url_add_member= "{{route('add_nhan_khau','')}}";
     url_edit_nhan_khau="{{route('edit_nhan_khau','')}}";
+    url_delete_nk="{{route('delete_nhan_khau','')}}";
 </script>
 <script src="{{asset('js/ho_khau.js')}}"></script>
 <script>

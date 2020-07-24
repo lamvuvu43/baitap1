@@ -1,3 +1,5 @@
+
+
 window.onload = function () {
     $.ajax({
         url: url,
@@ -155,7 +157,7 @@ $(document).on("click", ".member_hk", function () {
                 dataTableNk += "</td>";
                 dataTableNk += "<td>";
                 dataTableNk +=
-                    "<a class='btn btn-danger m-1 delete_btn' data-id='" +
+                    "<a class='btn btn-danger m-1 delete_btn_nk' data-id='" +
                     value.id +
                     "'><i class='far fa-trash-alt'></i></a>";
                 dataTableNk +=
@@ -164,7 +166,7 @@ $(document).on("click", ".member_hk", function () {
                     "/" +
                     value.id +
                     "'><i class='far fa-edit'></i></i></a>";
-             
+
                 dataTableNk += "</tr>";
             });
             call_table(dataTableNk);
@@ -190,15 +192,32 @@ function call_table(dataTable) {
                 next: "Tiếp theo",
             },
         },
-    })
-    ;
+    });
     // console.log(dataTableNk)
-//    table.ajax.reload();
+    //    table.ajax.reload();
     $("#dataNhanKhau").html(dataTable);
-   
-    
 }
 // $(document).on("mouseenter", ".member_hk", function () {
 //     console.log('working');
 //     $("#memberModal").modal("show");
 // });
+$(document).on("click", ".delete_btn_nk", function () {
+    console.log("here");
+    id=$(this).data("id");
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        url: url_delete_nk +'/'+id,
+        type: "DELETE",
+        data: {
+            id: id,
+            _token: token,
+        },
+        success: function (data) {
+            console.log("delete nk thành công");
+            $("#"+id).hide(500);
+        },
+        error: function (e) {
+            console.log(e);
+        },
+    });
+});

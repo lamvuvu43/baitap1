@@ -7,9 +7,9 @@
             <h3 class="m-3">Thêm nhân khẩu</h3>
         </div>
         <div class="row">
-           <div class="col-12 col-md-6 col-lg-6">
-            <button class="btn btn-secondary quaylai">Quay lại</button>
-           </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <button class="btn btn-secondary quaylai">Quay lại</button>
+            </div>
         </div>
         <div>
             <form action="{{route('process_add_nhan_khau')}}" method="POST" enctype="multipart/form-data">
@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="HK_ID" class="mr-2">Hộ khẩu ID</label>
-                    <input name="HK_ID" id="HK_ID" class="form-control" value="{{$id}}" name="HK_ID" readonly>
+                        <input name="HK_ID" id="HK_ID" class="form-control" value="{{$id}}" name="HK_ID" readonly>
                         @error('hk_cd')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -25,7 +25,7 @@
 
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Ho_Ten" class="mr-2">Họ tên</label>
-                    <input type="text" name="Ho_Ten" value="{{old('Ho_Ten')}}"
+                        <input type="text" name="Ho_Ten" value="{{old('Ho_Ten')}}"
                             class="form-control @error('Ho_Ten') is-invaild @enderror">
                         @error('Ho_Ten')
                         <div class="alert alert-danger">{{$message}}</div>
@@ -34,9 +34,27 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">
+                        <label for="user" class="mr-2">User</label>
+                        <input name="user" id="user" class="form-control" value="{{old('user')}}" name="user">
+                        @error('user')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-6 ">
+                        <label for="password" class="mr-2">Mật khẩu</label>
+                        <input type="text" name="password" value="{{old('password')}}"
+                            class="form-control @error('password') is-invaild @enderror">
+                        @error('password')
+                        <div class="alert alert-danger">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Ngay_Sinh" class="mr-2">Ngày sinh</label>
                         <input type="date" class=" @error('Ngay_Sinh') is-invalid @enderror form-control"
-                            name="Ngay_Sinh" placeholder="12455325" value="{{old('Ngay_Sinh')}}" id="Ngay_Sinh">
+                            name="Ngay_Sinh" placeholder="" value="{{old('Ngay_Sinh')}}" id="Ngay_Sinh">
                         @error('Ngay_Sinh')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -45,7 +63,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Ngay_Mat" class="mr-2">Ngày Mất</label>
                         <input type="date" class=" @error('Ngay_Mat') is-invalid @enderror form-control" name="Ngay_Mat"
-                            placeholder="12455325" value="{{old('Ngay_Mat')}}" id="Ngay_Mat">
+                            placeholder="" value="{{old('Ngay_Mat')}}" id="Ngay_Mat">
                         @error('Ngay_Mat')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -54,10 +72,10 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Gioi_Tinh" class="mr-2">Giới tính</label>
-                       <select name="Gioi_Tinh" id="Gioi_Tinh" class="form-control">
-                           <option value="Nam">Nam</option>
-                           <option value="Nữ">Nữ</option>
-                       </select>
+                        <select name="Gioi_Tinh" id="Gioi_Tinh" class="form-control">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
                         @error('Gioi_Tinh')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -66,7 +84,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Quan_He" class="mr-2">Quan hệ</label>
                         <input type="text" class=" @error('Quan_He') is-invalid @enderror form-control" name="Quan_He"
-                            placeholder="12455325" value="{{old('Quan_He')}}" id="Quan_He">
+                            placeholder="" value="{{old('Quan_He')}}" id="Quan_He">
                         @error('Quan_He')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -76,7 +94,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Email" class="mr-2">Email</label>
                         <input type="email" class=" @error('Email') is-invalid @enderror form-control" name="Email"
-                            placeholder="12455325" value="{{old('Email')}}" id="Email">
+                            placeholder="" value="{{old('Email')}}" id="Email">
                         @error('Email')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -85,7 +103,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="SDT" class="mr-2">Số điện thoại</label>
                         <input type="text" class=" @error('SDT') is-invalid @enderror form-control" name="SDT"
-                            placeholder="12455325" value="{{old('SDT')}}" id="SDT">
+                            placeholder="" value="{{old('SDT')}}" id="SDT" maxlength="10">
                         @error('SDT')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -106,7 +124,7 @@
                         {{-- <div><a class="btn btn-info" id="avatar">Chọn hình</a></div> --}}
                         <input type="file" id="upload_avatar" name="Hinh_Anh" value="" class="form-control @error('Ngay_Nhap_Khau')
                             is-invalid
-                        @enderror" accept="image/*" >
+                        @enderror" accept="image/*">
                         @error('Hinh_Anh')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

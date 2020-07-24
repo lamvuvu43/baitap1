@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,7 @@ class LoginController extends Controller
 
     public function nk_login(Request $request)
     {
-        // dd($request->all());
+        
         $rules = [
             'email' => 'required',
             'password' => 'required',
@@ -82,7 +83,7 @@ class LoginController extends Controller
             'email.required' => 'Vui lòng nhập email',
             'password.required' => 'Vui lòng nhập mật khẩu',
         ];
-     
+
         $vali = Validator::make($request->all(), $rules, $message);
         $arr = [
             'user' => $request['email'],
@@ -94,9 +95,8 @@ class LoginController extends Controller
         } else {
             // dd(Auth::guard('nhan_khau_login'));
             if (Auth::guard('nhan_khau_login')->attempt($arr)) {
-                dd(Auth::guard('nhan_khau_login'));
-        
-
+                // dd(Auth::guard('nhan_khau_login'));
+                return redirect()->route('list_nhan_khau_by_hk');
             } else {
                 return redirect()->back()->with('error_login', 'Email hoặc mật khẩu không đúng');
             }

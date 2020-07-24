@@ -6,7 +6,9 @@ use App\Models\HoKhau;
 use App\Models\NhanKhau;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class NhanKhauController extends Controller
 {
@@ -54,7 +56,10 @@ class NhanKhauController extends Controller
             'Quan_He' => "required",
             'Email' => "required",
             'SDT' => "required",
-            'Ngay_Nhap_Khau' => "required"
+            // 'SDT' => "required|regex:/(01)[0-9]{9}/",
+            'Ngay_Nhap_Khau' => "required",
+            'user' => 'required|unique:nhan_khau,user',
+            'password' => 'required'
         ];
         $message = [
             'HK_ID.required' => "Hộ khẩu ID không được trống",
@@ -66,7 +71,11 @@ class NhanKhauController extends Controller
             'Quan_He.required' => "Vui lòng chọn một quan hệ",
             'Email.required' => "Vui lòng nhập email",
             'SDT.required' => "Vui lòng nhập số điện thoại",
-            'Ngay_Nhap_Khau.required' => "Ngày nhập khẩu không được trống"
+            // 'SDT.regex' => "Số điện thoại không hợp lệ",
+            'Ngay_Nhap_Khau.required' => "Ngày nhập khẩu không được trống",
+            'user.required' => "Vui lòng nhập User",
+            'user.unique' => "Tài khoản đã tồn tại",
+            'password.required' => "Vui lòng nhập mật khẩu",
         ];
         $vali = Validator::make($request->all(), $rules, $message);
         if ($vali->fails()) {
@@ -81,6 +90,8 @@ class NhanKhauController extends Controller
             $id = NhanKhau::insertGetId([
                 'HK_ID' => $request['HK_ID'],
                 'Ho_Ten' => $request['Ho_Ten'],
+                "user"=>$request['user'],
+                "password"=>bcrypt($request['password']),
                 'Ngay_Sinh' => $request['Ngay_Sinh'],
                 'Ngay_Mat' => $request['Ngay_Mat'],
                 'Gioi_Tinh' => $request['Gioi_Tinh'],
@@ -90,11 +101,11 @@ class NhanKhauController extends Controller
                 'Ngay_Nhap_Khau' => $request['Ngay_Nhap_Khau']
             ]);
             NhanKhau::where('ID', $id)->update(['Hinh_Anh' => '/images/' . $filename]);
-            $check_chu_ho_id = HoKhau::where('ID',$request['HK_ID'])->first(); 
-            if($check_chu_ho_id->Chu_Ho_ID ==null){
-                HoKhau::where('ID',$request['HK_ID'])->update(['Chu_Ho_ID'=>$id]);
+            $check_chu_ho_id = HoKhau::where('ID', $request['HK_ID'])->first();
+            if ($check_chu_ho_id->Chu_Ho_ID == null) {
+                HoKhau::where('ID', $request['HK_ID'])->update(['Chu_Ho_ID' => $id]);
             }
-            return redirect()->back()->with('success', 'Thêm nhân khẩu thành công')->withInput();
+            return redirect()->back()->with('success', 'Thêm nhân khẩu thành công');
         }
     }
 
@@ -108,7 +119,7 @@ class NhanKhauController extends Controller
     {
         // dd($id);
         $nk = NhanKhau::where('ID', $id)->first();
-    
+
         return view('task2.nhan_khau.edit_nhan_khau', compact('nk'));
     }
 
@@ -132,20 +143,19 @@ class NhanKhauController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //   dd($request->all());
-        if($request->file('Hinh_Anh')!=null){
-            $file=$request->file(['Hinh_Anh']);
+        //   dd($request->all());
+        if ($request->file('Hinh_Anh') != null) {
+            $file = $request->file(['Hinh_Anh']);
             $filename = time() . '.' .  $file->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $file->move($destinationPath, $filename);
-            NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh','HK_ID']));
-            NhanKhau::where('ID',$id)->update(['Hinh_Anh'=>"/images/".$filename]);
-        }else{     
-            dd($request->all());
-            NhanKhau::where('ID',$id)->update(Arr::except($request->all(),['_token','Hinh_Anh']));
+            NhanKhau::where('ID', $id)->update(Arr::except($request->all(), ['_token', 'Hinh_Anh', 'HK_ID']));
+            NhanKhau::where('ID', $id)->update(['Hinh_Anh' => "/images/" . $filename]);
+        } else {
+            // dd($request->all());
+            NhanKhau::where('ID', $id)->update(Arr::except($request->all(), ['_token', 'Hinh_Anh']));
         }
-        return redirect()->back()->with('success','Cập nhật thành công');
-        
+        return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
     /**
@@ -156,6 +166,12 @@ class NhanKhauController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('ho_khau')->where('HK_ID',$id)->update(['HK_ID'=>0]);
+        NhanKhau::where('id',$id)->delete();       
+    }
+    public function list_nhan_khau_by_hk()
+    {
+        $nk = NhanKhau::where('HK_ID', Auth::guard('nhan_khau_login')->user()->HK_ID)->get();
+        return view('task6.list_nhan_khau_by_hk', compact('nk'));
     }
 }

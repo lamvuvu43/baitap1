@@ -35,9 +35,27 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 ">
+                        <label for="user" class="mr-2">User</label>
+                        <input name="user" id="user" class="form-control" value="{{old('user')}}" name="user">
+                        @error('user')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-6 ">
+                        <label for="password" class="mr-2">Mật khẩu</label>
+                        <input type="text" name="password" value="{{old('password')}}"
+                            class="form-control @error('password') is-invaild @enderror">
+                        @error('password')
+                        <div class="alert alert-danger">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Ngay_Sinh" class="mr-2">Ngày sinh</label>
                         <input type="date" class=" @error('Ngay_Sinh') is-invalid @enderror form-control"
-                            name="Ngay_Sinh" placeholder="12455325" value="{{$nk->Ngay_Sinh}}" id="Ngay_Sinh">
+                            name="Ngay_Sinh" placeholder="" value="{{$nk->Ngay_Sinh}}" id="Ngay_Sinh">
                         @error('Ngay_Sinh')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -46,7 +64,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Ngay_Mat" class="mr-2">Ngày Mất</label>
                         <input type="date" class=" @error('Ngay_Mat') is-invalid @enderror form-control" name="Ngay_Mat"
-                            placeholder="12455325" value="{{$nk->Ngay_Mat}}" id="Ngay_Mat">
+                            placeholder="" value="{{$nk->Ngay_Mat}}" id="Ngay_Mat">
                         @error('Ngay_Mat')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -67,7 +85,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Quan_He" class="mr-2">Quan hệ</label>
                         <input type="text" class=" @error('Quan_He') is-invalid @enderror form-control" name="Quan_He"
-                            placeholder="12455325" value="{{$nk->Quan_He}}" id="Quan_He">
+                            placeholder="" value="{{$nk->Quan_He}}" id="Quan_He">
                         @error('Quan_He')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -77,7 +95,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="Email" class="mr-2">Email</label>
                         <input type="email" class=" @error('Email') is-invalid @enderror form-control" name="Email"
-                    placeholder="12455325" value="{{$nk->Email}}" id="Email">
+                    placeholder="" value="{{$nk->Email}}" id="Email">
                         @error('Email')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -86,7 +104,7 @@
                     <div class="col-12 col-md-6 col-lg-6 ">
                         <label for="SDT" class="mr-2">Số điện thoại</label>
                         <input type="text" class=" @error('SDT') is-invalid @enderror form-control" name="SDT"
-                            placeholder="12455325" value="{{$nk->SDT}}" id="SDT">
+                            placeholder="" value="{{$nk->SDT}}" id="SDT">
                         @error('SDT')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

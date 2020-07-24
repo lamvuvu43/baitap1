@@ -39,6 +39,12 @@
         {{ session('success') }}
     </div>
     @endif
+    @if (session('no_permision'))
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        {{ session('no_permision') }}
+    </div>
+    @endif
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
         {{-- <div class="top-right links">
@@ -60,15 +66,27 @@
             {{-- responsive, mobile-first projects on the web.</p> --}}
         </div>
         <ul class="nav justify-content-center bg-">
+            @if(Auth::check())
             <li class="nav-item">
                 <a class="nav-link active" href="{{route('ho_khau')}}">Hộ Khẩu</a>
             </li>
+        
             <li class="nav-item">
                 <a class="nav-link" href="{{route('nhan_khau')}}">Nhân Khẩu</a>
             </li>
+            @endif
             <li class="nav-item drowpdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">{{Auth::user()->name}}</a>
+
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @if(Auth::check())
+                    {{Auth::user()->name}}
+                    @else
+                    @if(Auth::guard('nhan_khau_login')->check())
+                    {{Auth::guard('nhan_khau_login')->user()->Ho_Ten}}
+                    @endif
+                    @endif
+
+                </a>
                 <div class="dropdown-menu">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
@@ -88,6 +106,7 @@
         @yield('edit_ho_khau')
         @yield('list_nhan_khau')
         @yield('add_member_to_hk')
+        @yield('list_nhan_khau_by_hk')
     </div>
 
     {{-- <div class="container bg-light">
