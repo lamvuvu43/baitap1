@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class NhanKhauSeeder extends Seeder
 {
@@ -12,10 +13,10 @@ class NhanKhauSeeder extends Seeder
     public function run()
     {
        DB::table('nhan_khau')->insert([
-        ['Ho_Ten'=>'Vu','HK_ID'=>'1','User'=>'lamvuvu44@gmail.com','Password'=>bcrypt('12345678'),'Ngay_Sinh'=>date('2000-01-01'),'Ngay_Mat'=>date('Y-m-d'),'Gioi_Tinh'=>'Nam','Quan_He'=>'Con','Email'=>'vu12334@gmail','SDT'=>'0374885769','Ngay_nhap_Khau'=>date('Y-m-d')],
-        ['Ho_Ten'=>'Minh','HK_ID'=>'1','User'=>'lamvuvu45@gmail.com','Password'=>bcrypt('12345678'),'Ngay_Sinh'=>date('2000-01-01'),'Ngay_Mat'=>date('Y-m-d'),'Gioi_Tinh'=>'Nam','Quan_He'=>'Con','Email'=>'Minh12334@gmail','SDT'=>'0374885769','Ngay_nhap_Khau'=>date('Y-m-d')],
-        ['Ho_Ten'=>'Tuan','HK_ID'=>'1','User'=>'lamvuvu46@gmail.com','Password'=>bcrypt('12345678'),'Ngay_Sinh'=>date('2000-01-01'),'Ngay_Mat'=>date('Y-m-d'),'Gioi_Tinh'=>'Nam','Quan_He'=>'Con','Email'=>'Tuan12334@gmail','SDT'=>'0374885769','Ngay_nhap_Khau'=>date('Y-m-d')],
-        ['Ho_Ten'=>'Hoang','HK_ID'=>'1','User'=>'lamvuvu47@gmail.com','Password'=>bcrypt('12345678'),'Ngay_Sinh'=>date('2000-01-01'),'Ngay_Mat'=>date('Y-m-d'),'Gioi_Tinh'=>'Nam','Quan_He'=>'Con','Email'=>'Hoang12334@gmail','SDT'=>'0374885769','Ngay_nhap_Khau'=>date('Y-m-d')],
+        ['ho_ten'=>'vu','hk_id'=>'1','user'=>'lamvuvu44@gmail.com','password'=>bcrypt('12345678'),'ngay_sinh'=>date('2000-01-01'),'ngay_mat'=>date('y-m-d'),'gioi_tinh'=>'nam','quan_he'=>'con','email'=>'vu12334@gmail','sdt'=>'0374885769','ngay_nhap_khau'=>date('y-m-d')],
+        ['ho_ten'=>'minh','hk_id'=>'2','user'=>'lamvuvu45@gmail.com','password'=>bcrypt('12345678'),'ngay_sinh'=>date('2000-01-01'),'ngay_mat'=>date('y-m-d'),'gioi_tinh'=>'nam','quan_he'=>'con','email'=>'minh12334@gmail','sdt'=>'0374885769','ngay_nhap_khau'=>date('y-m-d')],
+        ['ho_ten'=>'tuan','hk_id'=>'3','user'=>'lamvuvu46@gmail.com','password'=>bcrypt('12345678'),'ngay_sinh'=>date('2000-01-01'),'ngay_mat'=>date('y-m-d'),'gioi_tinh'=>'nam','quan_he'=>'con','email'=>'tuan12334@gmail','sdt'=>'0374885769','ngay_nhap_khau'=>date('y-m-d')],
+        ['ho_ten'=>'hoang','hk_id'=>'1','user'=>'lamvuvu47@gmail.com','password'=>bcrypt('12345678'),'ngay_sinh'=>date('2000-01-01'),'ngay_mat'=>date('y-m-d'),'gioi_tinh'=>'nam','quan_he'=>'con','email'=>'hoang12334@gmail','sdt'=>'0374885769','ngay_nhap_khau'=>date('y-m-d')],
        ]);
     }
 }

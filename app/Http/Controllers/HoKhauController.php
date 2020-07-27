@@ -7,7 +7,10 @@ use App\Models\NhanKhau;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Yajra\Datatables\Datatables;
+
 
 class HoKhauController extends Controller
 {
@@ -19,13 +22,39 @@ class HoKhauController extends Controller
     public function index()
     {
         $hokhau = HoKhau::get();
-        $response = array();
+    //   $i=1;
 
-        foreach ($hokhau as $i => $item) {
-
-            $response[] = array('id' => $item->ID, 'hk_cd' => $item->HK_CD, 'chu_ho_id' => $item->Chu_Ho_ID, 'dia_chi' => $item->Dia_Chi, 'ngay_cap' => $item->Ngay_Cap, 'stv' => count($item->nhankhau));
-        }
-        echo json_encode($response);
+        return Datatables::of($hokhau)
+        ->addColumn('stt',function($hokhau){
+            // $i = $i+1;
+            return "";
+        })
+        ->setRowid(function($hokhau){
+            return $hokhau->id;
+        })
+        ->editColumn('chu_ho_id',function($hokhau){
+            if($hokhau->chu_ho_id ==0){
+                return "";
+            }else{
+                $nk=DB::table('nhan_khau')->where('id',$hokhau->chu_ho_id)->first();
+                return $nk->ho_ten;
+            }
+        })
+        ->addColumn('stv',function($hokhau){
+           return  "<button class='btn btn-default member_hk text-primary' data-id='".$hokhau->id."'>".count($hokhau->nhankhau)." </button>";
+        })
+        ->addColumn('action',function($hokhau){
+            return "
+            <a class='btn btn-success m-1 popup' href='".route('add_nhan_khau',$hokhau->id)."'><i class='far fa-address-card'></i><span class='popuptext' id='myPopup'>Thêm thành viên</span></a>
+            <a class='btn btn-primary m-1' href='".route('edit_ho_khau',$hokhau->id)."'><i class='far fa-edit'></i></i></a>
+            <a class='btn btn-danger m-1 delete_btn' data-id='".$hokhau->id."'><i class='far fa-trash-alt'></i></a>
+           
+           
+            ";
+        })
+        ->rawColumns(['stv','action']) // rawColumns dùng khi cần cho phép chạy tag html nếu không thì sẽ hiện string tag html
+        ->make(true);
+      
     }
 
     /**
@@ -57,6 +86,7 @@ class HoKhauController extends Controller
         $messege = [
             'hk_cd.required' => 'Hộ khẩu công dân không được trống',
             'dia_chi.required' => 'Địa chỉ không được trống',
+            'dia_chi.regex' => 'Địa chỉ không hợp hệ',
             'ngay_cap.required' => 'Ngày cấp không được trống'
         ];
         $vali = Validator::make($request->all(), $rules, $messege);
@@ -64,7 +94,7 @@ class HoKhauController extends Controller
         if ($vali->fails()) {
             return redirect()->back()->withErrors($vali)->withInput();
         } else {
-            HoKhau::create(['HK_CD' => $request['hk_cd'], 'Chu_Ho_ID' => '0', 'Dia_Chi' => $request['dia_chi'], 'Ngay_Cap' => $request['ngay_cap']]);
+            HoKhau::create(['hk_cd' => $request['hk_cd'], 'chu_ho_id' => '0', 'dia_chi' => htmlspecialchars($request['dia_chi']), 'ngay_cap' => $request['ngay_cap']]);
         }
         return redirect()->back()->with('success', 'Thêm thành công');
     }
@@ -77,8 +107,8 @@ class HoKhauController extends Controller
      */
     public function show($id)
     {
-        $hk = HoKhau::where('ID', $id)->first();
-        $nk = NhanKhau::where('HK_ID', $id)->get();
+        $hk = HoKhau::where('id', $id)->first();
+        $nk = NhanKhau::where('hk_id', $id)->get();
         // dd($nk);
         return view('task1.ho_khau.edit_ho_khau', compact('hk', 'nk'));
     }
@@ -104,7 +134,7 @@ class HoKhauController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all(),$id);
-        HoKhau::where('ID', $id)->update(['HK_CD' => $request['hk_cd'], 'Chu_Ho_ID' => $request['chu_ho_id'], 'Dia_Chi' => $request['dia_chi'], 'Ngay_Cap' => $request['ngay_cap']]);
+        HoKhau::where('id', $id)->update(['hk_id' => $request['hk_cd'], 'chu_ho_id' => $request['chu_ho_id'], 'Dia_Chi' =>htmlspecialchars( $request['dia_chi']), 'ngay_cap' => $request['ngay_cap']]);
         return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
@@ -116,21 +146,38 @@ class HoKhauController extends Controller
      */
     public function destroy($id)
     {
+        NhanKhau::where("hk_id",$id)->delete();
         HoKhau::destroy($id);
     }
     public function getListNhanKhau($id)
     {
-        $nk = NhanKhau::where('HK_ID', $id)->get();
-        $respones = array();
-        foreach ($nk as $item) {
-            $respones[] = array('id' => $item->id, 'hk_id' => $item->HK_ID, 'ho_ten' => $item->Ho_Ten, 'ngay_sinh' => $item->Ngay_Sinh, 'ngay_mat' => $item->Ngay_Mat, 'gioi_tinh' => $item->Gioi_Tinh, 'quan_he' => $item->Quan_He, 'email' => $item->Email, 'sdt' => $item->SDT, 'ngay_nhap_khau' => $item->Ngay_Nhap_Khau, 'hinh_anh' => $item->Hinh_Anh);
-        }
-        echo json_encode($respones);
+        $nk = NhanKhau::where('HK_id', $id)->get();
+        return DataTables::of($nk)
+        ->addColumn('stt',function($nk){
+           return ""; 
+        })
+        ->setRowid(function($nk){
+            return $nk->id."nk";
+        })
+        ->editColumn('hinh_anh',function($nk){
+           if($nk->hinh_anh!=''){
+            return "<div class='avatar'> <img src='".$nk->hinh_anh. "' alt='hình ảnh avatar'></div>";
+           }else{
+               return "";
+           }
+        })
+        ->addColumn('action',function($nk){
+           return "<a class='btn btn-danger m-1 delete_btn_nk' data-id='".$nk->id."'><i class='far fa-trash-alt'></i></a>
+            <a class='btn btn-primary m-1' href='".route('edit_nhan_khau',$nk->id)."'><i class='far fa-edit'></i></i></a>
+            ";
+        })
+        ->rawColumns(['hinh_anh','action'])
+        ->make(true);
     }
 
     public function add_member($id)
     {
-        $nk = NhanKhau::where('HK_ID','=','null')->get();
+        $nk = NhanKhau::where('HK_id','=','null')->get();
         //con thắc mắc phần này đợi hỏi
         return view('task1.ho_khau.add_member_nk', compact('id'));
     }

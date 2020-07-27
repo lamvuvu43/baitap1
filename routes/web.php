@@ -58,6 +58,7 @@ Route::group(['prefix' => 'manager', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'user','middleware'=>'nhan_khau_login'], function () {
     Route::group(['prefix' => 'nhan_khau'], function () {
+        Route::get('/nhan_khau_by_hk','NhanKhauController@nhan_khau_by_hk')->name('nhan_khau_by_hk');
         Route::get('/list_nhan_khau_by_hk','NhanKhauController@list_nhan_khau_by_hk')->name('list_nhan_khau_by_hk');
     });
 });

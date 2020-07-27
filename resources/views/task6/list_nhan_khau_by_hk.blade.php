@@ -26,6 +26,7 @@
                     <tr>
                         <th>STT</th>
                         <th>ID</th>
+                        <th>User</th>
                         <th>Họ tên</th>
                         <th>Hình ảnh</th>
                         <th>Ngày sinh</th>
@@ -38,50 +39,53 @@
                     
                     </tr>
                 </thead>
-                <tbody id="dataNhanKhau">
-                    @foreach ($nk as $i=> $item)
-                    <?php $i =$i+1?>
-                    <tr>
-                        <td>{{$i}}</td>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->Ho_Ten}}</td>
-                        <td>
-                            <div class="avatar">
-                                <img src="{{$item->Hinh_Anh}}" alt="">
-                            </div>
-                        </td>
-                        <td>{{$item->Ngay_Sinh}}</td>
-                        <td>{{$item->Ngay_Mat}}</td>
-                        <td>{{$item->Gioi_Tinh}}</td>
-                        <td>{{$item->Quan_He}}</td>
-                        <td>{{$item->Email}}</td>
-                        <td>{{$item->SDT}}</td>
-                        <td>{{$item->Ngay_Nhap_Khau}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
+              
             </table>
         </div>
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        $('#tableNhanKhau').DataTable({
-                destroy: true
-                , "language": {
-                    "info": "Từ _START_ đến _END_ của _TOTAL_ dòng"
-                    , "lengthMenu": " Hiện thị _MENU_ dòng "
-                    , "zeroRecords": "Không có giữ liệu"
-                    , "infoEmpty": ""
-                    , "infoFiltered": "(tìm thấy trong _MAX_ dòng dữ liệu)"
-                    , "search": "Tìm kiếm"
-                    , "paginate": {
-                        "previous": "Trước"
-                        , "next": "Tiếp theo"
-                    }
-                }
-            });
-    })
+    window.onload=function(){
+
+        $("#tableNhanKhau").DataTable({
+        // destroy: true, // dùng khi cần ghi lại dữ liệu của bảng
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{route('list_nhan_khau_by_hk')}}",
+            error: function (e) {
+                console.log(e.responseJSON.message);
+            },
+        },
+        columns: [
+            { data: "stt", name: "stt" },
+            { data: "id", name: "id" },
+            { data: "user", name: "user" },
+            { data: "ho_ten", name: "Họ tên" },
+            { data: "hinh_anh", name: "Hình ảnh" },
+            { data: "ngay_sinh", name: "Ngày sinh" },
+            { data: "ngay_mat", name: "Ngày mất" },
+            { data: "gioi_tinh", name: "Giới tính" },
+            { data: "quan_he", name: "Quan hệ" },
+            { data: "email", name: "Email" },
+            { data: "sdt", name: "SDT" },
+            { data: "ngay_nhap_khau", name: "Ngày nhập khẩu" },
+        ],
+        language: {
+            info: "Từ _START_ đến _END_ của _TOTAL_ dòng",
+            lengthMenu: " Hiện thị _MENU_ dòng ",
+            zeroRecords: "Không có giữ liệu",
+            infoEmpty: "",
+            infoFiltered: "(tìm thấy trong _MAX_ dòng dữ liệu)",
+            search: "Tìm kiếm",
+            paginate: {
+                previous: "Trước",
+                next: "Tiếp theo",
+            },
+        },
+        pageLength: 2,
+    });
+    }
   
 
 </script>

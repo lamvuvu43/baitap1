@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 ">
                         <label for="dia_chi" class="mr-2">Địa chỉ</label>
-                        <input type="text" class=" @error('dia_chi') is-invalid @enderror form-control"" name=" dia_chi"
+                        <input type="text" class=" @error('dia_chi') is-invalid @enderror form-control" name="dia_chi"
                             placeholder="12455325" value="" id="dia_chi">
                         @error('dia_chi')
                         <div class="alert alert-danger">{{ $message }}</div>

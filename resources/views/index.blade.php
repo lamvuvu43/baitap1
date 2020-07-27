@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('pageTitle') - Quản lý hổ khẩu</title>
+    <title> Quản lý hổ khẩu - @yield('pageTitle') </title>
 
 
 
@@ -26,9 +26,11 @@
     <link rel="stylesheet" href="{{asset('css/nhan_khau.css')}}">
     <link rel="stylesheet" href="{{asset('css/ho_khau.css')}}">
     <link rel="stylesheet" href="{{asset('css/popup.css')}}">
-    <link rel="stylesheet" href="{{asset('css/jquery-confirm.min.css')}}">
-    <script src="{{asset("js/jquery-confirm.min.js")}}"></script>
-
+    {{-- <link rel="stylesheet" href="{{asset('css/jquery-confirm.min.css')}}">
+    <script src="{{asset("js/jquery-confirm.min.js")}}"></script> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="{{asset('css/modal.css')}}">
 </head>
 
 <body>
@@ -61,7 +63,7 @@
         @endauth
     </div> --}}
     @endif
-    <div class="container" style="position: relative;">
+    <div class="container-fuild" style="position: relative; p-3">
         <div class="jumbotron text-center">
             <h1>Quản lý hộ khẩu</h1>
             {{-- <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing --}}
@@ -84,7 +86,7 @@
                     {{Auth::user()->name}}
                     @else
                     @if(Auth::guard('nhan_khau_login')->check())
-                    {{Auth::guard('nhan_khau_login')->user()->Ho_Ten}}
+                    {{Auth::guard('nhan_khau_login')->user()->ho_ten}}
                     @endif
                     @endif
 

@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class HoKhau extends Model
 {
     protected $table='ho_khau';
-    protected $primaryKey='ID';
-    protected $fillable=['HK_CD','Chu_Ho_ID','Dia_Chi','Ngay_Cap'];
+    protected $primarykey='id';
+    protected $fillable=['hk_cd','chu_ho_id','dia_chi','ngay_cap'];
     public function nhankhau()
     {
-        return $this->hasMany('App\Models\NhanKhau','HK_ID');
+        return $this->hasmany('App\Models\NhanKhau','hk_id');
     }
 
+    
 }

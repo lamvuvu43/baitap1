@@ -1,11 +1,11 @@
 
 #table_member{
-    position: absolute;
+    /* position: absolute; */
     z-index: 20;
     top:150px;
     margin-right: 15px;
     /* left: 50px; */
     /* padding-right: 10px; */
-    overflow: auto;
+    /* overflow: auto; */
     /* padding: 5px; */
 }

@@ -9,6 +9,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use DataTables;
+use Throwable;
+use Intervention\Image\Facades\Image;
 
 class NhanKhauController extends Controller
 {
@@ -20,11 +23,27 @@ class NhanKhauController extends Controller
     public function index()
     {
         $nk = NhanKhau::get();
-        $respones = array();
-        foreach ($nk as $item) {
-            $respones[] = array('id' => $item->id, 'hk_id' => $item->HK_ID, 'ho_ten' => $item->Ho_Ten, 'ngay_sinh' => $item->Ngay_Sinh, 'ngay_mat' => $item->Ngay_Mat, 'gioi_tinh' => $item->Gioi_Tinh, 'quan_he' => $item->Quan_He, 'email' => $item->Email, 'sdt' => $item->SDT, 'ngay_nhap_khau' => $item->Ngay_Nhap_Khau, 'hinh_anh' => $item->Hinh_Anh);
-        }
-        echo json_encode($respones);
+        return DataTables::of($nk)
+            ->addColumn('stt', function ($nk) {
+                return "";
+            })
+            ->editColumn('hinh_anh', function ($nk) {
+                if ($nk->hinh_anh != '') {
+                    return "<div class='avatar'> <img src='" . $nk->hinh_anh . "' alt='hình ảnh avatar'></div>";
+                } else {
+                    return "";
+                }
+            })
+            ->setRowId(function ($nk) {
+                return $nk->id;
+            })
+            ->addColumn('action', function ($nk) {
+                return "<a class='btn btn-danger m-1 delete_btn' data-id='" . $nk->id . "'><i class='far fa-trash-alt'></i></a>
+            <a class='btn btn-primary m-1' href='" . route('edit_nhan_khau', $nk->id) . "'><i class='far fa-edit'></i></i></a>
+            ";
+            })
+            ->rawColumns(['hinh_anh', 'action'])
+            ->make(true);
     }
 
     /**
@@ -38,6 +57,7 @@ class NhanKhauController extends Controller
         return view('task2.nhan_khau.add_nhan_khau', compact('id'));
     }
 
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -48,64 +68,68 @@ class NhanKhauController extends Controller
     {
         // dd($request->all());
         $rules = [
-            'HK_ID' => "required",
-            'Ho_Ten' => "required",
-            'Hinh_Anh' => "required|mimes:jpeg,png,jpg,gif,svg",
-            'Ngay_Sinh' => "required",
-            'Gioi_Tinh' => "required",
-            'Quan_He' => "required",
-            'Email' => "required",
-            'SDT' => "required",
-            // 'SDT' => "required|regex:/(01)[0-9]{9}/",
-            'Ngay_Nhap_Khau' => "required",
+            'hk_id' => "required",
+            'ho_ten' => "required",
+            
+            'ngay_sinh' => "required",
+            'gioi_tinh' => "required",
+            'quan_he' => "required",
+            'email' => "required",
+            // 'sdt' => "required",
+            'sdt' => "required|regex:/0([1-9]{1})([0-9]{8})/",
+            'ngay_nhap_khau' => "required",
             'user' => 'required|unique:nhan_khau,user',
-            'password' => 'required'
+            'password' => 'required',
+            'img64'=>'required',
         ];
         $message = [
-            'HK_ID.required' => "Hộ khẩu ID không được trống",
-            'Ho_Ten.required' => "Họ tên không được trống ",
-            'Hinh_Anh.required' => "Vui lòng chọn 1 hình ảnh",
-            'Hinh_Anh.mines' => "Định dạng hình ảnh không hợp lệ",
-            'Ngay_Sinh.required' => "Vui lòng nhập ngày sinh",
-            'Gioi_Tinh.required' => "Vui lòng chọn một giới tính",
-            'Quan_He.required' => "Vui lòng chọn một quan hệ",
-            'Email.required' => "Vui lòng nhập email",
-            'SDT.required' => "Vui lòng nhập số điện thoại",
-            // 'SDT.regex' => "Số điện thoại không hợp lệ",
-            'Ngay_Nhap_Khau.required' => "Ngày nhập khẩu không được trống",
-            'user.required' => "Vui lòng nhập User",
-            'user.unique' => "Tài khoản đã tồn tại",
-            'password.required' => "Vui lòng nhập mật khẩu",
+            'hk_id.required' => "hộ khẩu id không được trống",
+            'ho_ten.required' => "họ tên không được trống ",
+            'ngay_sinh.required' => "vui lòng nhập ngày sinh",
+            'gioi_tinh.required' => "vui lòng chọn một giới tính",
+            'quan_he.required' => "vui lòng chọn một quan hệ",
+            'email.required' => "vui lòng nhập email",
+            'sdt.required' => "vui lòng nhập số điện thoại",
+            'sdt.regex' => "số điện thoại không hợp lệ",
+            'ngay_nhap_khau.required' => "ngày nhập khẩu không được trống",
+            'user.required' => "vui lòng nhập user",
+            'user.unique' => "tài khoản đã tồn tại",
+            // 'user.regex' => "User không hợp lệ. Tài khoản hợp lệ khi có cả chữ và số",
+            'password.required' => "vui lòng nhập mật khẩu",
+            'img64.required'=>"Hình ảnh không được trống"
         ];
-        $vali = Validator::make($request->all(), $rules, $message);
+      
+
+        $vali = validator::make($request->all(), $rules, $message);
         if ($vali->fails()) {
-            // dd($vali->fails());
-            return redirect()->back()->withErrors($vali)->withInput();
+            dd($vali->fails());
+            return redirect()->back()->witherrors($vali)->withinput();
         } else {
             // dd($request->all());
-            $file =  $request->file(['Hinh_Anh']);
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $file->move($destinationPath, $filename);
             $id = NhanKhau::insertGetId([
-                'HK_ID' => $request['HK_ID'],
-                'Ho_Ten' => $request['Ho_Ten'],
+                'hk_id' => $request['hk_id'],
+                'ho_ten' => $request['ho_ten'],
                 "user" => $request['user'],
                 "password" => bcrypt($request['password']),
-                'Ngay_Sinh' => $request['Ngay_Sinh'],
-                'Ngay_Mat' => $request['Ngay_Mat'],
-                'Gioi_Tinh' => $request['Gioi_Tinh'],
-                'Quan_He' => $request['Quan_He'],
-                'Email' => $request['Email'],
-                'SDT' => $request['SDT'],
-                'Ngay_Nhap_Khau' => $request['Ngay_Nhap_Khau']
+                'ngay_sinh' => $request['ngay_sinh'],
+                'ngay_mat' => $request['ngay_mat'],
+                'gioi_tinh' => $request['gioi_tinh'],
+                'quan_he' => $request['quan_he'],
+                'email' => $request['email'],
+                'sdt' => $request['sdt'],
+                'ngay_nhap_khau' => $request['ngay_nhap_khau']
             ]);
-            NhanKhau::where('ID', $id)->update(['Hinh_Anh' => '/images/' . $filename]);
-            $check_chu_ho_id = HoKhau::where('ID', $request['HK_ID'])->first();
-            if ($check_chu_ho_id->Chu_Ho_ID == null) {
-                HoKhau::where('ID', $request['HK_ID'])->update(['Chu_Ho_ID' => $id]);
+            $extension = explode('/', mime_content_type($request['img64']))[1];
+            $filename = time() . '.' . $extension;
+            Image::make($request['img64'])->save(public_path('/images/' . $filename)); //save vào folder
+            
+            NhanKhau::where('id', $id)->update(['hinh_anh' => "/images/" . $filename]);
+           
+            $check_chu_ho_id = HoKhau::where('id', $request['hk_id'])->first();
+            if ($check_chu_ho_id->chu_ho_id == null) {
+                HoKhau::where('id', $request['chu_ho'])->update(['chu_ho_id' => $id]);
             }
-            return redirect()->back()->with('success', 'Thêm nhân khẩu thành công');
+            return redirect()->route('ho_khau')->with('success', 'thêm nhân khẩu thành công');
         }
     }
 
@@ -144,16 +168,15 @@ class NhanKhauController extends Controller
     public function update(Request $request, $id)
     {
         //   dd($request->all());
-        if ($request->file('Hinh_Anh') != null) {
-            $file = $request->file(['Hinh_Anh']);
-            $filename = time() . '.' .  $file->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $file->move($destinationPath, $filename);
-            NhanKhau::where('ID', $id)->update(Arr::except($request->all(), ['_token', 'Hinh_Anh', 'HK_ID']));
-            NhanKhau::where('ID', $id)->update(['Hinh_Anh' => "/images/" . $filename]);
+        if ($request['img64'] != null) {
+            $extension = explode('/', mime_content_type($request['img64']))[1];
+            $filename = time() . '.' . $extension;
+            Image::make($request['img64'])->save(public_path('/images/' . $filename));
+            NhanKhau::where('id', $id)->update(Arr::except($request->all(), ['_token', 'hk_id','img64']));
+            NhanKhau::where('id', $id)->update(['hinh_anh' => "/images/" . $filename]);
         } else {
             // dd($request->all());
-            NhanKhau::where('ID', $id)->update(Arr::except($request->all(), ['_token', 'Hinh_Anh']));
+            NhanKhau::where('id', $id)->update(Arr::except($request->all(), ['_token', 'hinh_anh']));
         }
         return redirect()->back()->with('success', 'Cập nhật thành công');
     }
@@ -166,18 +189,42 @@ class NhanKhauController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('ho_khau')->where('ID','=',$id)->update(['Chu_Ho_ID'=>0]);
-        // $hk = HoKhau::where('ID', $id)->first();
-        // if ($hk != null) {
-        //     echo "Lỗi không thể xoá. Do người này đang là chủ hộ";
-        // } else {
-        //     NhanKhau::where('id', $id)->delete();
-        // }
-        NhanKhau::where('id', $id)->delete();
+
+        $check_chu_ho = HoKhau::where('chu_ho_id', $id)->first();
+
+        try {
+            if ($check_chu_ho->chu_ho_id == '') {
+                NhanKhau::where('id', $id)->delete();
+            } else {
+                echo "fail";
+            }
+        } catch (Throwable  $e) {
+            NhanKhau::where('id', $id)->delete();
+        }
+    }
+    public function nhan_khau_by_hk()
+    {
+
+        return view('task6.list_nhan_khau_by_hk');
     }
     public function list_nhan_khau_by_hk()
     {
-        $nk = NhanKhau::where('HK_ID', Auth::guard('nhan_khau_login')->user()->HK_ID)->get();
-        return view('task6.list_nhan_khau_by_hk', compact('nk'));
+        $nk = NhanKhau::where('hk_id', Auth::guard('nhan_khau_login')->user()->hk_id)->get();
+        return DataTables::of($nk)
+            ->addColumn('stt', function ($nk) {
+                return "";
+            })
+            ->editColumn('hinh_anh', function ($nk) {
+                if ($nk->hinh_anh != '') {
+                    return "<div class='avatar'> <img src='" . $nk->hinh_anh . "' alt='hình ảnh avatar'></div>";
+                } else {
+                    return "";
+                }
+            })
+            ->setRowId(function ($nk) {
+                return $nk->id;
+            })
+            ->rawColumns(['hinh_anh'])
+            ->make(true);
     }
 }
