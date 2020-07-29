@@ -14,11 +14,11 @@ class CreateHoKhauTable extends Migration
     public function up()
     {
         Schema::create('ho_khau', function (Blueprint $table) {
-            $table->increments('ID');
-            $table->integer('HK_CD');
-            $table->integer('Chu_Ho_ID')->nullable();
-            $table->string('Dia_Chi');
-            $table->date('Ngay_Cap');
+            $table->increments('id');
+            $table->integer('hk_cd');
+            $table->integer('chu_ho_id')->nullable();
+            $table->string('dia_chi');
+            $table->date('ngay_cap');
             $table->timestamps();
         });
     }

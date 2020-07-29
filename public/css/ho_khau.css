@@ -1,11 +1,27 @@
 
 #table_member{
-    position: absolute;
+    /* position: absolute; */
     z-index: 20;
     top:150px;
     margin-right: 15px;
     /* left: 50px; */
     /* padding-right: 10px; */
-    overflow: auto;
+    /* overflow: auto; */
     /* padding: 5px; */
+}
+
+
+.nav-link::first-letter{
+    font-size: 150%;
+    /* color: lightsalmon; */
+}
+
+#btn_confirm_hk ,#btn_cancel_hk, #btn_cancel_nk, #btn_confirm_nk{
+    cursor: pointer;
+}
+
+
+
+.btn{
+    cursor: pointer;
 }

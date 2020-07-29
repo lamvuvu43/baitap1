@@ -1,10 +1,10 @@
 @extends('index')
 @section('pageTitle',' Thêm hộ khẩu')
 @section('add_ho_khau')
-<div class="row">
+<div class="row" style="padding: 15px">
     <div class="col-12 col-md-12 col-lg-12">
         <div class="text-center bg-light">
-            <h3 class="m-3">Thêm hộ khẩu</h3>
+            <h3 class="m-3 p-3">Thêm hộ khẩu</h3>
         </div>
         <div>
             <button class="btn btn-second quaylai">Quay lại</button>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 ">
                         <label for="dia_chi" class="mr-2">Địa chỉ</label>
-                        <input type="text" class=" @error('dia_chi') is-invalid @enderror form-control"" name=" dia_chi"
+                        <input type="text" class=" @error('dia_chi') is-invalid @enderror form-control" name="dia_chi"
                             placeholder="12455325" value="" id="dia_chi">
                         @error('dia_chi')
                         <div class="alert alert-danger">{{ $message }}</div>

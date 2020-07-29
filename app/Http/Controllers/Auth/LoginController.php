@@ -96,7 +96,7 @@ class LoginController extends Controller
             // dd(Auth::guard('nhan_khau_login'));
             if (Auth::guard('nhan_khau_login')->attempt($arr)) {
                 // dd(Auth::guard('nhan_khau_login'));
-                return redirect()->route('list_nhan_khau_by_hk');
+                return redirect()->route('nhan_khau_by_hk');
             } else {
                 return redirect()->back()->with('error_login', 'Email hoặc mật khẩu không đúng');
             }

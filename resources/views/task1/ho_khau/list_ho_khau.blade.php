@@ -1,17 +1,17 @@
 @extends('index')
 @section('pageTitle','Danh sách hộ khẩu')
 @section('list_ho_khau')
-<div class="row">
-    <div class="col-12 col-md-12 col-lg-12">
+<div class="row" style="margin:10px">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
         <div class="text-center bg-light">
-            <h3 class="m-3">Danh sách hộ khẩu</h3>
+            <h3 class="mt-3 p-3"  style="border: 1px solid #333;border-radius:5px">Danh sách hộ khẩu</h3>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6" style="margin-left: 15px">
                 <a class="btn btn-primary btn_add" href="{{route('add_ho_khau')}}">Thêm hộ khẩu</a>
             </div>
         </div>
-        <div class="m-3  " style=" overflow: auto;">
+        <div class="m-3  " style=" ">
             <table class="table" id="tableHoKhau">
                 <thead>
                     <tr>
@@ -24,54 +24,93 @@
                         <th>Chức năng</th>
                     </tr>
                 </thead>
-                <tbody id="dataHoKhau">
 
-                </tbody>
             </table>
         </div>
 
     </div>
-
-</div>
-
-<div id="table_member" class="bg-light mt-3" style="display: none;box-shadow:2px 2px 2px 2px #888888">
-    <div class="row">
-        <div class="col-12 col-md-12 col-lg-12">
-            <div class=" style= background-color: #333; overflow:auto">
-                <div class="row bg-light">
-                    <div class="col-10 col-md-10 col-lg-10 text-center text-danger">
-                        <h3>Danh sách thành viên trong hộ khẩu</h3>
-                    </div>
-                    <div class="col-0 col-md-2 col-lg-2 text-right">
-                        <button class="btn btn-danger close_table">x</button>
-                    </div>
+    <div class="modal" id="modalDeleteHK">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xoá hộ khẩu</h4>
                 </div>
-                <table class="table" id="tableNhanKhau">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>ID</th>
-                            <th>Họ tên</th>
-                            <th>Hình ảnh</th>
-                            <th>Ngày sinh</th>
-                            <th>Ngày mất</th>
-                            <th>Giới tính</th>
-                            <th>Quan hệ</th>
-                            <th>Email</th>
-                            <th>SDT</th>
-                            <th>Ngày nhập khẩu</th>
-                            <th>Chức năng</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dataNhanKhau">
-
-                    </tbody>
-                </table>
+                <div class="modal-body text-center">
+                    <h3 id="name_confirm_hk"></h3>
+                    <p class="text-danger">Đồng nghĩa các nhân khẩu trong hộ khẩu sẽ bị xoá đi</p>
+                </div>
+                <div class="row" style="padding-left: 15px;padding-right: 15px">
+                    <div class="col-12 col-md-6 col-lg-6  bg-success text-center pt-3 pb-3" id="btn_cancel_hk"
+                        data-dismiss="modal" style=" border-bottom-left-radius: 5px;"> Huỷ</div>
+                    <div class="col-12 col-md-6 col-lg-6 bg-danger  text-center pt-3 pb-3" id="btn_confirm_hk"
+                        style=" border-bottom-right-radius: 5px;">Xoá</div>
+                </div>
             </div>
         </div>
-
+    </div>
+    <div class="modal" id="modalDeleteNK">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xoá nhân khẩu</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <h3 id="name_confirm_nk"></h3>
+                </div>
+                <div class="row" style="padding-left: 15px;padding-right: 15px">
+                    <div class="col-12 col-md-6 col-lg-6  bg-success text-center pt-3 pb-3" id="btn_cancel_nk"
+                        data-dismiss="modal" style=" border-bottom-left-radius: 5px;"> Huỷ</div>
+                    <div class="col-12 col-md-6 col-lg-6 bg-danger  text-center pt-3 pb-3" id="btn_confirm_nk"
+                        style=" border-bottom-right-radius: 5px;">Xoá</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-12 col-lg-12">
+        <div id="table_member" class="bg-light mt-3" style=" display:none;overflow:auto">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                   
+                        <div class="row text-right">
+                            <div class="col-12 col-md-12 col-lg-12 text-right">
+                                <button class="btn btn-danger close_table">x</button>
+                            </div>
+                        </div>
+                        <div class="row bg-light  ml-3 mr-3 pt-3">
+                            <div class="col-12 col-md-12 col-lg-12 text-center text-danger" style="border: 1px solid #333; border-radius:5px">
+                                <h3 class="p-3">Danh sách thành viên trong hộ khẩu</h3>
+                            </div>
+                        </div>
+                        <div class="row m-3">
+                        <table class="table" id="tableNhanKhau" >
+                            <thead>
+                                <tr class="bg-success">
+                                    <th>STT</th>
+                                    {{-- <th>ID</th> --}}
+                                    <th>User</th>
+                                    <th>Họ tên</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Ngày mất</th>
+                                    <th>Giới tính</th>
+                                    <th>Quan hệ</th>
+                                    <th>Email</th>
+                                    <th>SDT</th>
+                                    <th>Ngày nhập khẩu</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+        
+                        </table>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <script>
     url = "{{route('list_ho_khau')}}";
@@ -90,7 +129,7 @@
         // $(this).html('Thêm thành viên ')
     })
     $(document).on('mouseleave','.popup',function(){
-        console.log("mouseover");
+        // console.log("mouseover");
         $(this).parent().find('#myPopup').hide();
         // $(this).html('Thêm thành viên ')
     })
@@ -99,8 +138,6 @@
     $('.close_table').click(function(){
         // $("#dataNhanKhau").html("");
         $('#table_member').hide(500);
-       
-      
     })
 </script>
 @endsection

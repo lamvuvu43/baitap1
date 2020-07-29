@@ -14,20 +14,20 @@ class CreateNhanKhauTable extends Migration
     public function up()
     {
         Schema::create('nhan_khau', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('HK_ID')->unsigned()->nullable();
+            $table->increments('id');
+            $table->integer('hk_id')->unsigned()->nullable();
             $table->string('user')->nullable();
             $table->string('password')->nullable();
-            $table->string("Ho_Ten", '50');
-            $table->string("Hinh_Anh", '500')->nullable();
-            $table->date('Ngay_Sinh');
-            $table->date('Ngay_Mat')->nullable();
-            $table->string('Gioi_Tinh', '3');
-            $table->string('Quan_He', '30');
-            $table->string('Email', '50')->nullable();
-            $table->string('SDT', '10');
-            $table->date('Ngay_Nhap_Khau');
-            $table->foreign('HK_ID')->references('ID')->on('ho_khau')->onDelete('cascade');
+            $table->string("ho_ten", '50');
+            $table->string("hinh_anh", '500')->nullable();
+            $table->date('ngay_sinh');
+            $table->date('ngay_mat')->nullable();
+            $table->string('gioi_tinh', '3');
+            $table->string('quan_he', '30');
+            $table->string('email', '50')->nullable();
+            $table->string('sdt', '10');
+            $table->date('ngay_nhap_khau');
+            $table->foreign('hk_id')->references('id')->on('ho_khau')->ondelete('cascade');
             $table->timestamps();
         });
     }

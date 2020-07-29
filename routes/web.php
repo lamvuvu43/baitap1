@@ -18,8 +18,8 @@ Route::Auth();
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::post('/hk_login','Auth\LoginController@hk_login')->name('hk_login');
-Route::post('/nk_login','Auth\LoginController@nk_login')->name('nk_login');
+Route::post('/hk_login', 'Auth\LoginController@hk_login')->name('hk_login');
+Route::post('/nk_login', 'Auth\LoginController@nk_login')->name('nk_login');
 
 
 
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'manager', 'middleware' => 'auth'], function () {
         Route::post('/process_edit_ho_khau/{id}', 'HoKhauController@update')->name('process_edit_ho_khau');
         Route::DELETE('/delete_ho_khau/{id}', 'HoKhauController@destroy')->name('delete_ho_khau');
         Route::get('/get_list_nhankhau/{id}', 'HoKhauController@getListNhanKhau')->name('get_list_nhan_khau');
-        Route::get('/add_member/{id}','HoKhauController@add_member')->name('add_member');
+        Route::get('/add_member/{id}', 'HoKhauController@add_member')->name('add_member');
 
         Route::get('/nhan_khau', function () {
             return view('task2.nhan_khau.list_nhan_khau');
@@ -51,13 +51,20 @@ Route::group(['prefix' => 'manager', 'middleware' => 'auth'], function () {
         Route::post('/process_add_nhan_khau', 'NhanKhauController@store')->name('process_add_nhan_khau');
         Route::get('/edit_nhan_khau/{id}', 'NhanKhauController@show')->name('edit_nhan_khau');
         Route::POST('/process_edit_nhan_khau/{id}', 'NhanKhauController@update')->name('process_edit_nhan_khau');
-        Route::DELETE('/process_delete/nhan_khau/{id}','NhanKhauController@destroy')->name('delete_nhan_khau');
-      
+        Route::DELETE('/process_delete/nhan_khau/{id}', 'NhanKhauController@destroy')->name('delete_nhan_khau');
     });
+    Route::group(['prefix' => 'exportcsv'], function () {
+        Route::get('/nhankhau', 'ExportCSVController@ExportNhanKhau')->name("export_nk");
+        Route::get('/nhankhau_shift', 'ExportCSVController@ExportNhanKhau_SHITF_JIS')->name("export_nk_shift");
+    });
+    
+    Route::get('/nhan_khau_after_add/{id_hk}', 'NhanKhauController@nhan_khau_by_after_add')->name('nhan_khau_after_add');
+    Route::get('/list_nhan_khau_after_add/{id_hk}', 'NhanKhauController@list_nhan_khau_after_add')->name('list_nhan_khau_after_add');
 });
 
-Route::group(['prefix' => 'user','middleware'=>'nhan_khau_login'], function () {
+Route::group(['prefix' => 'user', 'middleware' => 'nhan_khau_login'], function () {
     Route::group(['prefix' => 'nhan_khau'], function () {
-        Route::get('/list_nhan_khau_by_hk','NhanKhauController@list_nhan_khau_by_hk')->name('list_nhan_khau_by_hk');
+        Route::get('/nhan_khau_by_hk', 'NhanKhauController@nhan_khau_by_hk')->name('nhan_khau_by_hk');
+        Route::get('/list_nhan_khau_by_hk', 'NhanKhauController@list_nhan_khau_by_hk')->name('list_nhan_khau_by_hk');
     });
 });
