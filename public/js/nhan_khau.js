@@ -38,7 +38,7 @@ window.onload = function () {
                 next: "Tiếp theo",
             },
         },
-        pageLength: 2,
+        pageLength: 4,
     });
 };
 var id_nk = "";
