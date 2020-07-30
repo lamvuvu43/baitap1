@@ -7,8 +7,11 @@
             <h3 class="mt-3 p-3"  style="border: 1px solid #333;border-radius:5px">Danh sách hộ khẩu</h3>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6" style="margin-left: 15px">
-                <a class="btn btn-primary btn_add" href="{{route('add_ho_khau')}}">Thêm hộ khẩu</a>
+            <div class="col-12 col-md-6 col-lg-6" >
+                <a class="btn btn-primary btn_add ml-3" href="{{route('add_ho_khau')}}">Thêm hộ khẩu</a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 text-right">
+                <a class="btn btn-success btn_add mr-3 btn_export">Export CSV</a>
             </div>
         </div>
         <div class="m-3  " style=" ">
@@ -48,6 +51,34 @@
             </div>
         </div>
     </div>
+    <div id="modalExport" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+  
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-info">
+              <h4 class="modal-title">Chọn định dạng</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-6 text-center">
+                  <input type="checkbox" name="utf-8" id="utf_8" class="charater">
+                  <label for="UTF-8">UTF-8</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6 text-center">
+                  <input type="checkbox" name="shift-jis" id="shift_jis" class="charater">
+                  <label for="SHIFT-JIS">SHIFT-JIS</label>
+                </div>
+              </div>
+              <div></div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </div>
     <div class="modal" id="modalDeleteNK">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -139,5 +170,16 @@
         // $("#dataNhanKhau").html("");
         $('#table_member').hide(500);
     })
+
+    $(".btn_export").click(function(){
+        $("#modalExport").modal("show");
+    });
+    $("#utf_8").click(function() {
+        window.location.href="{{route('exporthokhau')}}";
+    })
+    $("#shift_jis").click(function () {
+        window.location.href="{{route('exporthokhau_shift')}}";
+    })
 </script>
+
 @endsection

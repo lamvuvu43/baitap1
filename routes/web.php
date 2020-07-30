@@ -54,6 +54,8 @@ Route::group(['prefix' => 'manager', 'middleware' => 'auth'], function () {
         Route::DELETE('/process_delete/nhan_khau/{id}', 'NhanKhauController@destroy')->name('delete_nhan_khau');
     });
     Route::group(['prefix' => 'exportcsv'], function () {
+        Route::get("/hokhau",'ExportCSVController@HoKhau')->name('exporthokhau');
+        Route::get("/hokhau_shift",'ExportCSVController@HoKhauShiftJis')->name('exporthokhau_shift');
         Route::get('/nhankhau', 'ExportCSVController@ExportNhanKhau')->name("export_nk");
         Route::get('/nhankhau_shift', 'ExportCSVController@ExportNhanKhau_SHITF_JIS')->name("export_nk_shift");
     });

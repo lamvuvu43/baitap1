@@ -128,6 +128,12 @@
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     {{-- <script src="{{ asset('/js/loading.js') }}"></script> --}}
     <script src="{{asset('js/table2csv.js')}}"></script>
+    <script>
+        $("input[type='checkbox']").click(function () {
+            console.log("checkbox")
+            $("input[type='checkbox']").not(this).prop('checked',false);
+        })
+    </script>
 </body>
 
 </html>
