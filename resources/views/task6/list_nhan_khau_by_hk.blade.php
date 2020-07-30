@@ -3,7 +3,7 @@
 @section('list_nhan_khau_by_hk')
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">
-        <div class="text-center bg-light">
+        <div class="text-center bg-light pr-3 pl-3">
             <h3 class="mt-3 p-3"  style="border: 1px solid #333;border-radius:5px">Danh sách nhân khẩu</h3>
         </div>
         <div class="row">
