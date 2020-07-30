@@ -216,3 +216,6 @@ thead tr:first-child{
 tr:nth-child(even){
     background-color: 	#C0C0C0;
 }
+tbody>tr>td{
+    text-align: center;
+}

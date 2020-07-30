@@ -64,7 +64,7 @@
     </div> --}}
     @endif
     <div class="container-fuild" style="position: relative; p-3">
-        <div class="jumbotron text-center">
+        <div class="jumbotron text-center m-3">
             <h1>Quản lý hộ khẩu</h1>
             {{-- <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing --}}
             {{-- responsive, mobile-first projects on the web.</p> --}}

@@ -14,6 +14,7 @@
 .nav-link::first-letter{
     font-size: 150%;
     /* color: lightsalmon; */
+    text-transform: uppercase;
 }
 
 #btn_confirm_hk ,#btn_cancel_hk, #btn_cancel_nk, #btn_confirm_nk{
