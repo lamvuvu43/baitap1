@@ -1,16 +1,15 @@
 @extends('index')
 @section('pageTitle',' sửa nhân khẩu')
 @section('add_ho_khau')
-<div class="row">
-    <div class="col-12 col-md-12 col-lg-12">
-        <div class="text-center bg-light">
+<div class="row m-3">
+    <div class="col-12 col-md-12 col-lg-12 ">
+        <div class="text-center bg-light p-3" style="border: #333 solid 1px;border-radius:5px">
             <h3 class="m-3">Sửa nhân khẩu</h3>
         </div>
-        <div class="row">
+        <div class="row pt-3">
             <div class="col-12 col-md-6 col-lg-6">
                 <button class="btn btn-second quaylai">Quay lại</button>
             </div>
-
         </div>
         <div>
             <form action="{{route('process_edit_nhan_khau',$nk->id)}}" method="post" enctype="multipart/form-data">

@@ -90,15 +90,15 @@ $(document).on("click", ".member_hk", function () {
             { data: "DT_RowIndex", name: "DT_RowIndex" },
             // { data: "id", name: "id" },
             { data: "user", name: "user" },
-            { data: "ho_ten", name: "Họ tên" },
-            { data: "hinh_anh", name: "Hình ảnh" },
-            { data: "ngay_sinh", name: "Ngày sinh" },
-            { data: "ngay_mat", name: "Ngày mất" },
-            { data: "gioi_tinh", name: "Giới tính" },
-            { data: "quan_he", name: "Quan hệ" },
-            { data: "email", name: "Email" },
-            { data: "sdt", name: "SDT" },
-            { data: "ngay_nhap_khau", name: "Ngày nhập khẩu" },
+            { data: "ho_ten", name: "ho_ten" },
+            { data: "hinh_anh", name: "hinh_anh" },
+            { data: "ngay_sinh", name: "ngay_sinh" },
+            { data: "ngay_mat", name: "ngay_mat" },
+            { data: "gioi_tinh", name: "gioi_tinh" },
+            { data: "quan_he", name: "quan_he" },
+            { data: "email", name: "email" },
+            { data: "sdt", name: "sdt" },
+            { data: "ngay_nhap_khau", name: "ngay_nhap_khau" },
             { data: "action", name: "Chức năng" },
         ],
         language: {
@@ -161,5 +161,6 @@ $("#btn_confirm_nk").click(function () {
 
 function scrollTest(table_member) {
     var elmnt = document.getElementById(table_member);
-    elmnt.scrollIntoView({ behavior: "smooth", block: "center" });
+    elmnt.scrollIntoView({ behavior: "smooth"});
 }
+

@@ -1,7 +1,7 @@
 @extends('index')
 @section('pageTitle','Danh sách hộ khẩu')
 @section('list_ho_khau')
-<div class="row" style="margin:10px">
+<div class="row" style="margin:10px;">
     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
         <div class="text-center bg-light">
             <h3 class="mt-3 p-3"  style="border: 1px solid #333;border-radius:5px">Danh sách hộ khẩu</h3>
@@ -14,10 +14,10 @@
                 <a class="btn btn-success btn_add mr-3 btn_export">Export CSV</a>
             </div>
         </div>
-        <div class="m-3  " style=" ">
+        <div class="m-3" style=" ">
             <table class="table" id="tableHoKhau">
                 <thead>
-                    <tr>
+                    <tr class="bg-success">
                         <th>STT</th>
                         <th>HK_CD</th>
                         <th>Chu_ho_ID</th>
@@ -99,12 +99,11 @@
     </div>
     <div class="col-12 col-md-12 col-lg-12">
         <div id="table_member" class="bg-light mt-3" style=" display:none;overflow:auto">
-            <div class="row">
+            <div class="row" >
                 <div class="col-12 col-md-12 col-lg-12">
-                   
                         <div class="row text-right">
-                            <div class="col-12 col-md-12 col-lg-12 text-right">
-                                <button class="btn btn-danger close_table">x</button>
+                            <div class="col-12 col-md-12 col-lg-12 text-right" style="background-color: cadetblue">
+                                <button class="btn btn-danger close_table">&times;</button>
                             </div>
                         </div>
                         <div class="row bg-light  ml-3 mr-3 pt-3">

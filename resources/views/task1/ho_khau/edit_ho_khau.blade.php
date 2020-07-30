@@ -1,12 +1,12 @@
 @extends('index')
 @section('pageTitle',' Cập nhật hộ khẩu')
 @section('edit_ho_khau')
-<div class="row">
+<div class="row  m-3">
     <div class="col-12 col-md-12 col-lg-12">
-        <div class="text-center bg-light">
-            <h3 class="m-3 p-3">Cập hộ khẩu</h3>
+        <div class="text-center bg-light p-3" style="border: #333 solid 1px;border-radius:5px">
+            <h3 class="m-3">Cập hộ khẩu</h3>
         </div>
-        <div>
+        <div class="pt-3">
             <button class="btn btn-second quaylai">Quay lại</button>
         </div>
         <div>

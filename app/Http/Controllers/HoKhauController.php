@@ -131,8 +131,8 @@ class HoKhauController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all(),$id);
-        HoKhau::where('id', $id)->update(['hk_id' => $request['hk_cd'], 'chu_ho_id' => $request['chu_ho_id'], 'Dia_Chi' =>htmlspecialchars( $request['dia_chi']), 'ngay_cap' => $request['ngay_cap']]);
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        HoKhau::where('id', $id)->update(['hk_cd' => $request['hk_cd'], 'chu_ho_id' => $request['chu_ho_id'], 'Dia_Chi' =>htmlspecialchars( $request['dia_chi']), 'ngay_cap' => $request['ngay_cap']]);
+        return redirect()->route('ho_khau')->with('success', 'Cập nhật thành công');
     }
 
     /**
