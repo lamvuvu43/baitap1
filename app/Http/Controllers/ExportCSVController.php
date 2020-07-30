@@ -125,7 +125,7 @@ class ExportCSVController extends Controller
         header('Content-Disposition: attachment; filename=hokhau_shift.csv');
         $output = fopen("php://output", "w");
         fputcsv($output, array(
-            mb_convert_encoding("STT", "SJIS", "UTF-8"),
+            mb_convert_encoding("死者数", "SJIS", "UTF-8"),
             mb_convert_encoding("HK_CD", "SJIS", "UTF-8"),
             mb_convert_encoding("Chủ hộ ID", "SJIS", "UTF-8"),
             mb_convert_encoding("Địa chỉ", "SJIS", "UTF-8"),
