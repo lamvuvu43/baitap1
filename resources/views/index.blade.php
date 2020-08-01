@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{asset('css/modal.css')}}">
 </head>
 
-<body>
+<body style="overflow-x: hidden">
     <div class="loading">
         <div class="showloading"></div>
     </div>

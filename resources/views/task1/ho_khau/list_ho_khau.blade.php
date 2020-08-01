@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="col-12 col-md-12 col-lg-12">
-        <div id="table_member" class="bg-light mt-3" style=" display:none;overflow:auto">
+        <div id="table_member" class="bg-light mt-3" style=" display:none;overflow:auto;">
             <div class="row" >
                 <div class="col-12 col-md-12 col-lg-12">
                         <div class="row text-right">
