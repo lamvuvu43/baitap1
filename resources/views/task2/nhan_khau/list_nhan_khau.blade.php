@@ -1,14 +1,14 @@
 @extends('index')
 @section('pageTitle','Danh sách nhân khẩu')
 @section('list_nhan_khau')
-<div class="row" style="padding: 15px">
+<div class="row" style="padding: 15px;margin: 0px;">
   <div class="col-12 col-md-12 col-lg-12">
     <div class="text-center bg-light">
       <h3 class="mt-3 p-3" style="border: 1px solid #333;border-radius:5px">Danh sách nhân khẩu</h3>
     </div>
     <div class="row">
 
-      <div class="col-12 col-md-6 col-lg-6">
+      <div class="col-12 col-md-6 col-lg-6" style="padding-bottom: 15px">
         <button class="btn btn-second quaylai">Quay lại</button>
       </div>
       <div class="col-12 col-md-6 col-lg-6 text-right">
@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="m-3  " style=" overflow: auto;">
+    <div style=" overflow: auto;">
       <table class="table" id="tableNhanKhau">
         <thead>
           <tr>

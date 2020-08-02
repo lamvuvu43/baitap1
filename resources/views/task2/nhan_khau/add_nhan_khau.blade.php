@@ -1,10 +1,10 @@
 @extends('index')
 @section('pagetitle','thêm nhân khẩu')
 @section('add_ho_khau')
-<div class="row" style="padding: 15px">
+<div class="row" style="margin: 0px; padding-left: 15px; padding-right: 15px">
     <div class="col-12 col-md-12 col-lg-12">
         <div class="text-center bg-light">
-            <h3 class="m-3">thêm nhân khẩu</h3>
+            <h3 class="m-3">Thêm nhân khẩu</h3>
         </div>
         <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
