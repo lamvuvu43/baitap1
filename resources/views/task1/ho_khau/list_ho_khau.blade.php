@@ -6,15 +6,15 @@
         <div class="text-center bg-light">
             <h3 class="mt-3 p-3"  style="border: 1px solid #333;border-radius:5px">Danh sách hộ khẩu</h3>
         </div>
-        <div class="row">
+        <div class="row" style="padding-bottom: 15px">
             <div class="col-12 col-md-6 col-lg-6" >
-                <a class="btn btn-primary btn_add ml-3" href="{{route('add_ho_khau')}}">Thêm hộ khẩu</a>
+                <a class="btn btn-primary btn_add " href="{{route('add_ho_khau')}}">Thêm hộ khẩu</a>
             </div>
             <div class="col-12 col-md-6 col-lg-6 text-right">
-                <a class="btn btn-success btn_add mr-3 btn_export">Export CSV</a>
+                <a class="btn btn-success btn_add btn_export">Export CSV</a>
             </div>
         </div>
-        <div class="m-3" style=" ">
+        <div >
             <table class="table" id="tableHoKhau">
                 <thead>
                     <tr class="bg-success">
